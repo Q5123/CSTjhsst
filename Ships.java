@@ -57,14 +57,12 @@ public class Ships
    }
    public void newOrbit(Planet arg) //Initializes a new orbit.
    {
-      if(Orbiting){}
+      if(Orbiting == true){}
       else {
-         int a = arg.getX(); 
-         int b = arg.getY(); //Gets center of planet
-         myDistance = (int) (Math.random() * 25 + 1);
+         myDistance = 25;
          myDistance += (int)(arg.getRadius()); //Sets the distance that it orbits at
          myOrbit = (myDistance * 2 * Math.PI);
-         myAngle = (mySpeed / myOrbit) * 180 / Math.PI;
+         myAngle = (mySpeed / 360) * myDistance;
          myAnglePos = 0;
          Orbiting = true;
       }
@@ -74,7 +72,7 @@ public class Ships
       int planetX = arg.getX(); 
       int planetY = arg.getY();
       myX = (int)(Math.cos(myAnglePos) * myOrbit) + planetX;
-      myY = (int)(Math.sin(myAnglePos) * myOrbit) + planetY; //Finds ship's current x and y coordinates.
+      myY = (int)(Math.sin(Math.toRadians(myAnglePos)) * myDistance) + planetY; //Finds ship's current x and y coordinates.
       myAnglePos += myAngle;
       if(myAnglePos > 360)
          myAnglePos -= 360; //Increments the angle pos of the ship.
