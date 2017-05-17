@@ -243,10 +243,8 @@ public class Planet
    
    public void displayInfo(Planet[] arg, JPanel p)
    {
-      System.out.println("Clicked");
+      System.out.println("Clicked " + name);
       console(JOptionPane.showInputDialog(null, getInfo()), arg, p);
-   
-   
    }
    
    public String getInfo()
