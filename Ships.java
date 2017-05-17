@@ -71,7 +71,7 @@ public class Ships
    {
       int planetX = arg.getX(); 
       int planetY = arg.getY();
-      myX = (int)(Math.cos(myAnglePos) * myOrbit) + planetX;
+      myX = (int)(Math.cos(Math.toRadians(myAnglePos)) * myDistance) + planetX;
       myY = (int)(Math.sin(Math.toRadians(myAnglePos)) * myDistance) + planetY; //Finds ship's current x and y coordinates.
       myAnglePos += myAngle;
       if(myAnglePos > 360)
