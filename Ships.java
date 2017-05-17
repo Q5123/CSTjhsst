@@ -1,6 +1,23 @@
 import java.lang.Math;
 import java.awt.*;
 import javax.swing.*;
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.image.BufferStrategy;
+import java.lang.*;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.util.*;
+import java.awt.Color;
+import java.awt.RenderingHints;
+import java.awt.Image;
 public class Ships
 {
    public int myX;
@@ -76,9 +93,12 @@ public class Ships
       myAnglePos += myAngle;
       if(myAnglePos > 360)
          myAnglePos -= 360; //Increments the angle pos of the ship.
-      ImageIcon ship = img;
-      RotatedIcon newShip = new RotatedIcon(ship, myAnglePos);
-      newShip.paintIcon(myPanel, g, myX, myY);
+      
+      BufferedImage bi = new BufferedImage(img.getIconWidth(),img.getIconHeight(),BufferedImage.TYPE_INT_RGB);
+      Graphics h = bi.createGraphics();
+      img.paintIcon(null, h, 0,0);
+      h.dispose();
+      g.drawImage(bi, myX, myY, null);
    }
    public void Attack(Planet arg2, Graphics g)
    {
