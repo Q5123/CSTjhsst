@@ -248,22 +248,18 @@ public class Game implements Runnable{
       {
          g.drawOval(arr[i].myX,arr[i].myY, (int)arr[i].Radius, (int)arr[i].Radius);
          
-         if(arr[i].myShipsT1 > 0) {
-            if(needsInstantiation){
+         if(arr[i].myShipsT1 > 0) 
+         {
+            if(needsInstantiation)
+            {
                double[] dob = arr[i].getCenter();
                s = new Ships((int)dob[0],(int)dob[1],10,10, "CyberMen", panel,"1B");
                s.newOrbit(arr[i]);
             }
-            
-            
             else
                s.drawCirclePath(arr[i], g);
          }
-         
       }
-      
-      
-      
    }
    
    public static void main(String [] args){
