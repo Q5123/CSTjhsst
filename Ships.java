@@ -48,16 +48,16 @@ public class Ships
       myY = my;
    }
    
-   public void getImagePath(String s)
+   public String getImagePath(String s)
    {
       
       return "GShips/" + s + ".png";
-      
-      
-      
-      
    }
    
+   public void setImagePath(String s)
+   {
+   
+   } //THIS DOESN'T DO ANYTHING OK
    public Ships(int mx, int my, int d, String o)
    {
       myX = mx;
@@ -99,11 +99,7 @@ public class Ships
       if(myAnglePos > 360)
          myAnglePos -= 360; //Increments the angle pos of the ship.
       
-      BufferedImage bi = new BufferedImage(img.getIconWidth(),img.getIconHeight(),BufferedImage.TYPE_INT_RGB);
-      Graphics h = bi.createGraphics();
-      img.paintIcon(null, h, 0,0);
-      h.dispose();
-      g.drawImage(bi, myX, myY, null);
+      g.drawImage(img, myX, myY, null);
    }
    public void Attack(Planet arg2, Graphics g)
    {
@@ -117,8 +113,8 @@ public class Ships
       }
       
       else {
-         ImageIcon ship = img;
-         ship.paintIcon(myPanel, g, myX, myY);
+         BufferedImage ship = img;
+         g.drawImage(ship, myX, myY, null);
          myX+= mySpeed;
          myY = (int)((slope * myX) + b);
       }
