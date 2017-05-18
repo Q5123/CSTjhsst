@@ -31,9 +31,16 @@ public class Game implements Runnable{
    JFrame frame;
    Canvas canvas;
    JPanel panel;
+
    BufferStrategy bufferStrategy;
    public boolean needsInstantiation;
    public Ships s;
+
+   ArrayList<Boolean> needsInstance;
+   ArrayList<Ships> ActShips;
+   ArrayList<Integer> reference;
+   
+
    public Game(){
       frame = new JFrame("Basic Game");
       needsInstantiation = true;
@@ -46,6 +53,9 @@ public class Game implements Runnable{
       canvas.setIgnoreRepaint(true);
       arr = new Planet[10];
       icon = new BufferedImage[arr.length];
+      needsInstance = new ArrayList<Boolean>();
+      ActShips = new ArrayList<Ships>();
+      reference = new ArrayList<Integer>();
       
       try{
          File f = new File("Map1.txt");
@@ -122,6 +132,14 @@ public class Game implements Runnable{
       g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
       g.drawImage(icon[i], null, arr[i].myX, arr[i].myY); 
       arr[i].Radius = icon[i].getWidth() * .1;   
+   }
+   
+   public void ships(Graphics2D g)
+   {
+      
+   
+   
+   
    }
 
 
@@ -231,15 +249,15 @@ public class Game implements Runnable{
          g.drawOval(arr[i].myX,arr[i].myY, (int)arr[i].Radius, (int)arr[i].Radius);
          
          if(arr[i].myShipsT1 > 0) {
-         if(needsInstantiation){
-            double[] dob = arr[i].getCenter();
-            s = new Ships((int)dob[0],(int)dob[1],10,10, "CyberMen", panel,"1B");
-            s.newOrbit(arr[i]);
+            if(needsInstantiation){
+               double[] dob = arr[i].getCenter();
+               s = new Ships((int)dob[0],(int)dob[1],10,10, "CyberMen", panel,"1B");
+               s.newOrbit(arr[i]);
             }
             
             
             else
-            s.drawCirclePath(arr[i], g);
+               s.drawCirclePath(arr[i], g);
          }
          
       }

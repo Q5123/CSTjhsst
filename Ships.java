@@ -48,17 +48,11 @@ public class Ships
       myY = my;
    }
    
-   public void setImage(String s)
+   public void getImagePath(String s)
    {
       
-      try
-      {
-      img = new BufferedImage("GShips/" + s + ".png");
-      }
+      return "GShips/" + s + ".png";
       
-      catch(Exception e)
-      {
-      }
       
       
       
@@ -79,7 +73,7 @@ public class Ships
       Owner = o;
       mySpeed  = s;
       myPanel = p;
-      setImage(i);
+      setImagePath(i);
       Orbiting = false;
       atk = false;
    }
@@ -129,4 +123,5 @@ public class Ships
          myY = (int)((slope * myX) + b);
       }
    }
+   
 }
