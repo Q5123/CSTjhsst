@@ -48,10 +48,10 @@ public class Ships
       myY = my;
    }
    
-   public void getImagePath(String s)
+   public void setImagePath(String s)
    {
       
-      return "GShips/" + s + ".png";
+       "GShips/" + s + ".png";
       
       
       
