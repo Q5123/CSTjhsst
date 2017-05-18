@@ -31,7 +31,10 @@ public class Game implements Runnable{
    JFrame frame;
    Canvas canvas;
    JPanel panel;
-   BufferStrategy bufferStrategy;
+   BufferStrategy bufferStrategy; 
+   ArrayList<Boolean> needsInstance;
+   ArrayList<Ships> ActShips;
+   ArrayList<Integer> reference;
    
    public Game(){
       frame = new JFrame("Basic Game");
@@ -45,6 +48,9 @@ public class Game implements Runnable{
       canvas.setIgnoreRepaint(true);
       arr = new Planet[10];
       icon = new BufferedImage[arr.length];
+      needsInstance = new ArrayList<Boolean>();
+      ActShips = new ArrayList<Ships>();
+      reference = new ArrayList<Integer>();
       
       try{
          File f = new File("Map1.txt");
