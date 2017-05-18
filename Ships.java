@@ -25,7 +25,7 @@ public class Ships
    public String Owner;
    public int myDistance; //Distance that ship orbits around planet
    public int theta;
-   ImageIcon img;
+   BufferedImage img;
    public int mySpeed; //How far the ship goes. 
    public int myStatus; //The class knows whether it is in flight to another planet, or orbiting around a planet.
    public double myAngle; //Angle that the ship travels at one tick.
@@ -50,7 +50,18 @@ public class Ships
    
    public void setImage(String s)
    {
-      img = new ImageIcon("GShips/" + s + ".png");
+      
+      try
+      {
+      img = new BufferedImage("GShips/" + s + ".png");
+      }
+      
+      catch(Exception e)
+      {
+      }
+      
+      
+      
    }
    
    public Ships(int mx, int my, int d, String o)

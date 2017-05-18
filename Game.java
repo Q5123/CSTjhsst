@@ -32,10 +32,11 @@ public class Game implements Runnable{
    Canvas canvas;
    JPanel panel;
    BufferStrategy bufferStrategy;
-   
+   public boolean needsInstantiation;
+   public Ships s;
    public Game(){
       frame = new JFrame("Basic Game");
-      
+      needsInstantiation = true;
       panel = (JPanel) frame.getContentPane();
       panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
       panel.setLayout(null);
@@ -230,9 +231,14 @@ public class Game implements Runnable{
          g.drawOval(arr[i].myX,arr[i].myY, (int)arr[i].Radius, (int)arr[i].Radius);
          
          if(arr[i].myShipsT1 > 0) {
+         if(needsInstantiation){
             double[] dob = arr[i].getCenter();
-            Ships s = new Ships((int)dob[0],(int)dob[1],10,10, "CyberMen", panel,"1B");
+            s = new Ships((int)dob[0],(int)dob[1],10,10, "CyberMen", panel,"1B");
             s.newOrbit(arr[i]);
+            }
+            
+            
+            else
             s.drawCirclePath(arr[i], g);
          }
          
