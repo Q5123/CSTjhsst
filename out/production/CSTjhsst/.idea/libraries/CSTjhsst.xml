@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="CSTjhsst">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Example_ships.zip!/" />
+      <root url="jar://$PROJECT_DIR$/planets.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

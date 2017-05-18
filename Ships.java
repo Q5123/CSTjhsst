@@ -48,7 +48,7 @@ public class Ships
       myY = my;
    }
    
-<<<<<<< HEAD
+
    public void setImagePath(String s)
    {
       

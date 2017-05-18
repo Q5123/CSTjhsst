@@ -1,0 +1,31 @@
+ADS 7251
+EQ Pegasi
+HN Librae
+LHS 3003
+Furuhjelm 46
+LP 6582
+SIMP J01
+V1054 Ophiuchi
+GJ 1128
+LP 71
+AC 54
+G 161
+WISE 0313
+G 12
+HR 88
+Ross 7
+LSPM J2
+Xi Bo
+SCR J1
+Gliese
+EE Leonis
+G 41
+WISE J2
+BD17 588
+GJ 1068
+L 369
+2MASS
+HD 19
+SCR J0
+Beta Hydri
+VX Arietis
