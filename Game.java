@@ -93,7 +93,7 @@ public class Game implements Runnable{
          
          }
       }
-      catch(Exception e){System.out.println("Not initilized");}
+      catch(Exception e){System.out.println("Not initialized");}
       
       
      
