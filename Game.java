@@ -43,7 +43,7 @@ public class Game implements Runnable{
    ArrayList<Integer> reference;
    
 
-   public Game(){
+   public Game(player px1, player px2){
       frame = new JFrame("Basic Game");
       needsInstantiation = true;
       panel = (JPanel) frame.getContentPane();
@@ -58,6 +58,8 @@ public class Game implements Runnable{
       needsInstance = new ArrayList<Boolean>();
       ActShips = new ArrayList<Ships>();
       reference = new ArrayList<Integer>();
+      p1 = px1;
+      p2 = px2;
       
       try{
          File f = new File("Map1.txt");
@@ -264,9 +266,6 @@ public class Game implements Runnable{
       }
    }
    
-   public static void main(String [] args){
-      Game ex = new Game();
-      new Thread(ex).start();
-   }
+
 
 }
