@@ -49,26 +49,23 @@ public class Ships
    }
    
 
-   public void setImagePath(String s)
-   {
+   public void setImagePath(String s) {
+
+      try {
+         img = ImageIO.read(new File("GShips/" + s + ".png"));
+      }
+      catch(Exception e){}
+   }
       
-       "GShips/" + s + ".png";
       
       
-      
-      
-=======
+
    public String getImagePath(String s)
    {
       
       return "GShips/" + s + ".png";
->>>>>>> Kevin_Branch
    }
-   
-   public void setImagePath(String s)
-   {
-   
-   } //THIS DOESN'T DO ANYTHING OK
+
    public Ships(int mx, int my, int d, String o)
    {
       myX = mx;

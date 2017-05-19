@@ -38,18 +38,31 @@ public class Planet
    boolean atk;
    public ArrayList<Ships> myShips;
    public int[] stored;
-   public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n)
+   public player myPlayer;
+   public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p)
    {
       img = i;
       myTier = t;
       Race= s;
       Iron = iro;
-      myStrength = mS + (t/2) + benefits(s, 2, t);
+      myStrength = mS + (t/2) + p.getBenefits("atk");
       Radius = r;
       myX = x;
       myY = y;
       name = n;
       myShips = new ArrayList<Ships>();
+   }
+
+   public void swtichPlayer(player p)
+   {
+      myPlayer = p;
+   }
+
+   public boolean isMyPlayer(player p)
+   {
+      if(p.myRace.equals(myPlayer.myRace))
+         return true;
+      return false;
    }
    public double getRadius()
    {
@@ -107,15 +120,7 @@ public class Planet
       return dob;
    
    }
-   
-   public static int benefits(String Race, int i, int t)
-   {
-      if(Race.equals("Cybermen") && i == 3)
-      {
-         return -1 - t;
-      }
-      return 0;
-   }
+
    public void update(double x, BufferedImage im, Graphics2D g, JPanel panel)
    {
      AffineTransform rot = new AffineTransform();
@@ -124,13 +129,13 @@ public class Planet
      g.drawImage(im, rot, panel);  
    }
    
-   public double calcStrength(Planet arg)
+   public double calcStrength(Planet arg, player p)
    {
-      return arg.getShips(1) + arg.getShips(2) + arg.getShips(3) + (arg.getTier() / 2) + benefits(arg.getRace(), 2, arg.getTier());
+      return arg.getShips(1) + arg.getShips(2) + arg.getShips(3) + (arg.getTier() / 2) + p.getBenefits("atk");
    }
-   public double calcStrength()
+   public double calcStrength(player p)
    {
-      return myShipsT1 + myShipsT2 + myShipsT3 + (myTier / 2) + benefits(Race, 2, myTier);
+      return myShipsT1 + myShipsT2 + myShipsT3 + (myTier / 2) + p.getBenefits("atk");
    }
    
    public void console(String s, Planet[] p, JPanel panel)
@@ -142,7 +147,7 @@ public class Planet
          
          else if(j.equals("setShipsT1")) {
             myShipsT1 = Integer.parseInt(s.substring(s.indexOf(".") + 1));
-            myStrength = calcStrength();
+            myStrength = calcStrength(myPlayer);
          }
       }
       catch(StringIndexOutOfBoundsException e){}
@@ -251,6 +256,11 @@ public class Planet
    {
       String s ="Name: " + name + "\n" + "Owner: " + Race + "\n " + " Iron : " + Iron + "\n " + " Strength : " + myStrength + "\n ";
       return s;
-   } 
+   }
+
+   public void attack(Planet p)
+   {
+
+   }
       
 }

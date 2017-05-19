@@ -31,6 +31,8 @@ public class Game implements Runnable{
    JFrame frame;
    Canvas canvas;
    JPanel panel;
+   player p1;
+   player p2;
 
    BufferStrategy bufferStrategy;
    public boolean needsInstantiation;
@@ -87,7 +89,7 @@ public class Game implements Runnable{
          
             int Iron = (int)(Math.random()*11);
          
-            arr[i] = new Planet(x,y,t,0,img,"Santron",Iron, r, name);
+            arr[i] = new Planet(x,y,t,0,img,"Santron",Iron, r, name, null);
          
          }
       }
