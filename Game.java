@@ -216,7 +216,7 @@ public class Game implements Runnable{
    private void render() {
       Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
       imgb.paintIcon(panel,g,0,0);
-      render(g);
+      render(g, arr);
       g.dispose();
       bufferStrategy.show();
       
@@ -238,7 +238,7 @@ public class Game implements Runnable{
    /**
     * Rewrite this method for your game
     */
-   protected void render(Graphics2D g){
+   protected void render(Graphics2D g, Planet[] arr){
       
       for(int i = 0; i < arr.length; i++) {
          try{
