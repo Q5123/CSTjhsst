@@ -252,7 +252,10 @@ public class Planet
       System.out.println("Clicked " + name);
       console(JOptionPane.showInputDialog(null, getInfo()), arg, p);
    }
-   
+   public void switchOwner(String s)
+   {
+       Race = s;
+   }
    public String getInfo()
    {
       String s ="Name: " + name + "\n" + "Owner: " + Race + "\n " + " Iron : " + Iron + "\n " + " Strength : " + myStrength + "\n ";

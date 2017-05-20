@@ -37,7 +37,7 @@ public class player
           case 3: setMyRace("Human");
           break;
 
-          case 4: setMyRace("Jawa");
+          default: setMyRace("Jawa");
           break;
       }
 
@@ -78,8 +78,8 @@ public class player
             case "atk":   if(myRace.equals("Dalek")){ return planets.size() / 2;}
             case "research": if(myRace.equals("Human")){ return planets.size() / 2;}
             case "build": if(myRace.equals("CyberMan")){ return planets.size() / 2;}
+            default: return 0;
         }
-        return 0;
     }
    public boolean amIDead()
    {
