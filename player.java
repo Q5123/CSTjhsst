@@ -40,7 +40,12 @@ public class player
           case 4: setMyRace("Jawa");
           break;
       }
+
    }
+    public player()
+    {
+        myTurn = Boolean.parseBoolean(null);
+    }
    
    public ArrayList<Integer> getPlanets()
    {

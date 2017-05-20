@@ -25,14 +25,20 @@ public class Game implements Runnable{
    public BufferedImage[] icon;
    final int WIDTH = 1600;
    final int HEIGHT = 900;
-   Planet[] arr;
-   Ships[] ship;
-   ImageIcon imgb;
-   JFrame frame;
-   Canvas canvas;
-   JPanel panel;
-   player p1;
-   player p2;
+   public Planet[] arr;
+   public Ships[] ship;
+   public ImageIcon imgb;
+   public JFrame frame;
+   public Canvas canvas;
+   public JPanel panel;
+   public player p1;
+   public player p2;
+   public AIplayer A;
+   public Scanner sl;
+   public Scanner h;
+   public File f;
+   public File g;
+
 
    BufferStrategy bufferStrategy;
    public boolean needsInstantiation;
@@ -60,13 +66,14 @@ public class Game implements Runnable{
       reference = new ArrayList<Integer>();
       p1 = px1;
       p2 = px2;
+      A = new AIplayer(arr);
       
       try{
-         File f = new File("Map1.txt");
-         Scanner s = new Scanner(f);
-         File g = new File("Names.txt");
-         Scanner h = new Scanner(g);
-         ArrayList<String> namas = new ArrayList<String>(64);
+         f = new File("Map1.txt");
+         sl = new Scanner(f);
+         g = new File("Names.txt");
+         h = new Scanner(g);
+         ArrayList<String> namas = new ArrayList<String>(10);
          for(int i = 0; i < 31; i++)
          {
             namas.add(i, h.nextLine());
@@ -74,13 +81,13 @@ public class Game implements Runnable{
             
          for(int i = 0; i < arr.length; i++)
          {
-            int x = s.nextInt();
-            int y = s.nextInt();
+            int x = sl.nextInt();
+            int y = sl.nextInt();
             int t = (int)(Math.random()*5);
             int im = (int)(Math.random()*11 + 1);
-            int r = t * 10;
+            double r = t * 10;
             String name = namas.get(i);
-            String img = null;
+            String img;
             if(im < 10) {
                img = "0" + im;
             }
@@ -91,7 +98,7 @@ public class Game implements Runnable{
          
             int Iron = (int)(Math.random()*11);
          
-            arr[i] = new Planet(x,y,t,0,img,"Santron",Iron, r, name, null);
+            arr[i] = new Planet(x,y,t,0,img,"Santron",Iron, r, name, A);
          
          }
       }
@@ -264,6 +271,13 @@ public class Game implements Runnable{
                s.drawCirclePath(arr[i], g);
          }
       }
+   }
+   public static void main(String [] args){
+      player p1 = new player(1, 1);
+      player p2 = new player(2, 2);
+
+      Game ex = new Game(p1,p2);
+      new Thread(ex).start();
    }
    
 

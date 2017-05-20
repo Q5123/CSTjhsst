@@ -45,6 +45,7 @@ public class Planet
       myTier = t;
       Race= s;
       Iron = iro;
+      myPlayer = p;
       myStrength = mS + (t/2) + p.getBenefits("atk");
       Radius = r;
       myX = x;
