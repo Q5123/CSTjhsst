@@ -22,6 +22,7 @@ public class player
    public ArrayList<Integer> planets;
    public boolean myTurn;
    public String myRace;
+   private boolean lifeStatus;
    public player(int x, int r)
    {
       planets = new ArrayList<Integer>();
@@ -75,6 +76,13 @@ public class player
         }
         return 0;
     }
-
-
+   public boolean amIDead()
+   {
+      return lifeStatus;
+   }
+   public boolean kill()
+   {
+      lifeStatus = false;
+      return lifeStatus;
+   }
 }
