@@ -1,6 +1,4 @@
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferStrategy;
@@ -8,13 +6,12 @@ import java.lang.*;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javax.swing.border.Border;
 import java.io.File;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.util.*;
-import java.awt.Color;
-import java.awt.RenderingHints;
-import java.awt.Image;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -54,7 +51,7 @@ public class Game implements Runnable{
       needsInstantiation = true;
       panel = (JPanel) frame.getContentPane();
       panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-      panel.setLayout(null);
+      panel.setLayout(new BorderLayout());
       imgb = new ImageIcon("game background.jpg");
       canvas = new Canvas();
       canvas.setBounds(0, 0, WIDTH, HEIGHT);
@@ -101,13 +98,28 @@ public class Game implements Runnable{
             arr[i] = new Planet(x,y,t,0,img,"Santron",Iron, r, name, A);
          
          }
+         arr[p1.firstPlanet].switchOwner(p1.myRace);
+         arr[p2.firstPlanet].switchOwner(p2.myRace);
       }
       catch(Exception e){System.out.println("Not initialized");}
       
       
-     
+
       
-      panel.add(canvas);
+      panel.add(canvas, BorderLayout.CENTER);
+
+      JPanel southPanel = new JPanel(new BorderLayout());
+      JButton endTurn = new JButton("end Turn");
+      endTurn.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+
+              switchTurn();
+
+          }
+      });
+
+
       
       canvas.addMouseListener(new MouseControl());
       
@@ -134,6 +146,22 @@ public class Game implements Runnable{
             
       }
    }
+    public void switchTurn()
+    {
+        if(p1.myTurn)
+        {
+            p1.myTurn = false;
+            p2.myTurn = true;
+        }
+        else if(p2.myTurn){
+            p2.myTurn= false;
+            A.myTurn = true;
+        }
+        else if(A.myTurn) {
+            A.myTurn = false;
+            p1.myTurn = true;
+        }
+    }
    
    public void displayButton(int i, Graphics2D g) throws Exception
    {
@@ -266,6 +294,7 @@ public class Game implements Runnable{
                double[] dob = arr[i].getCenter();
                s = new Ships((int)dob[0],(int)dob[1],10,10, "CyberMen", panel,"1B");
                s.newOrbit(arr[i]);
+               needsInstantiation = false;
             }
             else
                s.drawCirclePath(arr[i], g);

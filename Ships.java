@@ -92,7 +92,7 @@ public class Ships
          myDistance = 25;
          myDistance += (int)(arg.getRadius()); //Sets the distance that it orbits at
          myOrbit = (myDistance * 2 * Math.PI);
-         myAngle = (mySpeed / 360) * myDistance;
+         myAngle = (mySpeed * myDistance)/360;
          myAnglePos = 0;
          Orbiting = true;
       }

@@ -22,6 +22,7 @@ public class player
    public ArrayList<Integer> planets;
    public boolean myTurn;
    public String myRace;
+   public int firstPlanet;
    private boolean lifeStatus;
    public player(int x, int r)
    {
@@ -40,6 +41,7 @@ public class player
           default: setMyRace("Jawa");
           break;
       }
+      firstPlanet = x;
 
    }
     public player()
