@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="CSTjhsst">
+    <archive path="C:/Users/bhatn/CSTjhsst/Example_ships.zip" />
+    <archive path="C:/Users/bhatn/CSTjhsst/planets.zip" />
+  </library>
+  <library name="forms_rt">
+    <archive path="C:/Users/bhatn/CSTjhsst/forms_rt.jar" />
+  </library>
+</eclipse-userlibraries>
+
