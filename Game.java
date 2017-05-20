@@ -23,7 +23,6 @@ public class Game implements Runnable{
    final int WIDTH = 1600;
    final int HEIGHT = 900;
    public Planet[] arr;
-   public Ships[] ship;
    public ImageIcon imgb;
    public JFrame frame;
    public Canvas canvas;
@@ -118,6 +117,9 @@ public class Game implements Runnable{
 
           }
       });
+      southPanel.add(endTurn,BorderLayout.EAST);
+
+      panel.add(southPanel, BorderLayout.SOUTH);
 
 
       
@@ -286,19 +288,7 @@ public class Game implements Runnable{
       for(int i = 0; i < arr.length; i++)
       {
          g.drawOval(arr[i].myX,arr[i].myY, (int)arr[i].Radius, (int)arr[i].Radius);
-         
-         if(arr[i].myShipsT1 > 0) 
-         {
-            if(needsInstantiation)
-            {
-               double[] dob = arr[i].getCenter();
-               s = new Ships((int)dob[0],(int)dob[1],10,10, "CyberMen", panel,"1B");
-               s.newOrbit(arr[i]);
-               needsInstantiation = false;
-            }
-            else
-               s.drawCirclePath(arr[i], g);
-         }
+          arr[i].displayShips(g, arr[i]);
       }
    }
    public static void main(String [] args){

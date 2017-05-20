@@ -111,6 +111,24 @@ public class Planet
       
    
    }
+
+   public void addShips(Planet arg)
+   {
+       myShips.add(new Ships(0,0,10, 127, Race, null, "1B"));
+       myShips.get(myShips.size() - 1).newOrbit(arg);
+   }
+   public void displayShips(Graphics g, Planet arg)
+   {
+       if(myShips.size() == myShipsT1)
+       for(int i = 0; i < myShips.size(); i++ )
+       {
+           myShips.get(i).drawCirclePath(arg, g);
+       }
+       else {
+           addShips(arg);
+           displayShips(g, arg);
+       }
+   }
    public double[] getCenter()
    {
       double x = myX + Radius;
