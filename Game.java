@@ -296,7 +296,7 @@ public class Game implements Runnable{
       player p2 = new player(2, 2);
 
       Game ex = new Game(p1,p2);
-      new Thread(ex).start();
+
    }
    
 

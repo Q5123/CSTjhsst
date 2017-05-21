@@ -107,7 +107,7 @@ public class Ships
       if(myAnglePos > 360)
          myAnglePos -= 360; //Increments the angle pos of the ship.
       
-      g.drawImage(img, myX, myY, null);
+      g.drawImage(scaleDown(img), myX, myY, null);
    }
    public void Attack(Planet arg2, Graphics g)
    {
@@ -126,6 +126,19 @@ public class Ships
          myX+= mySpeed;
          myY = (int)((slope * myX) + b);
       }
+   }
+   public BufferedImage scaleDown(BufferedImage img)
+   {
+      int w = img.getWidth();
+      int h = img.getHeight();
+      BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+      AffineTransform at = new AffineTransform();
+      at.scale(.3, .3);
+      AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+      after = scaleOp.filter(img, after);
+      return after;
+
+
    }
    
 }

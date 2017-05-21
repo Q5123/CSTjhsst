@@ -187,10 +187,6 @@ public class Planet
          {
             System.out.println("thats not a planet");
          }
-         
-         
-         
-         
          else
          {
             String attacker = JOptionPane.showInputDialog(panel, "from which planet");
@@ -219,6 +215,14 @@ public class Planet
             
          
          }
+      }
+
+      if(s.equals("build"))
+      {
+          int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
+          myShipsT1 += amount;
+          Iron -= amount;
+
       }
       
       else

@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="forms_rt">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/forms_rt.jar!/" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES />
   </library>
