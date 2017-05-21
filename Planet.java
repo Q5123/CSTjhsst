@@ -39,6 +39,7 @@ public class Planet
    public ArrayList<Ships> myShips;
    public int[] stored;
    public player myPlayer;
+   public int myOff;
    public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p)
    {
       img = i;
@@ -54,9 +55,10 @@ public class Planet
       myShips = new ArrayList<Ships>();
    }
 
-   public void swtichPlayer(player p)
+   public void switchPlayer(player p)
    {
       myPlayer = p;
+      Race = p.myRace;
    }
 
    public boolean isMyPlayer(player p)
@@ -106,8 +108,21 @@ public class Planet
    public double getCircumference() {
       return circumference;
    }
-   public void attack(Planet p, int s)
-   { 
+   public void attack(Planet p, int s, Graphics g)
+   {
+       if(s + myPlayer.getBenefits("atk") > p.myStrength)
+       {
+          double remaining = s + myPlayer.getBenefits("atk") - p.myStrength;
+          for(int i = 0; i <= s; s++)
+          {
+              myShips.get(i).Attack(p, g);
+
+              p.myShips.add(myShips.get(i));
+
+              myShips.remove(i);
+
+          }
+       }
       
    
    }
@@ -157,7 +172,7 @@ public class Planet
       return myShipsT1 + myShipsT2 + myShipsT3 + (myTier / 2) + p.getBenefits("atk");
    }
    
-   public void console(String s, Planet[] p, JPanel panel, player p1)
+   public void console(String s, Planet[] p, JPanel panel, player p1, Graphics g)
    {
       try {
          String j = s.substring(0, s.indexOf("."));
@@ -208,8 +223,7 @@ public class Planet
             {
                int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
                
-               
-               store(ArrOfAttacker, ArrOfAttacked, amount);
+               attack(p[ArrOfAttacked], amount, g);
                 
             }
             
@@ -268,10 +282,10 @@ public class Planet
       return dx * dx + dy * dy <= r * r;
    } 
    
-   public void displayInfo(Planet[] arg, JPanel p, player p1)
+   public void displayInfo(Planet[] arg, JPanel p, player p1, Graphics g)
    {
       System.out.println("Clicked " + name);
-      console(JOptionPane.showInputDialog(null, getInfo()), arg, p, p1);
+      console(JOptionPane.showInputDialog(null, getInfo()), arg, p, p1, g);
    }
    public void switchOwner(String s)
    {

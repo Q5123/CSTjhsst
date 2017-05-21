@@ -33,7 +33,8 @@ public class Game implements Runnable{
    public Scanner sl;
    public Scanner h;
    public File f;
-   public File g;
+   public File j;
+   public Graphics2D g;
 
 
    BufferStrategy bufferStrategy;
@@ -67,8 +68,8 @@ public class Game implements Runnable{
       try{
          f = new File("Map1.txt");
          sl = new Scanner(f);
-         g = new File("Names.txt");
-         h = new Scanner(g);
+         j = new File("Names.txt");
+         h = new Scanner(j);
          ArrayList<String> namas = new ArrayList<String>(10);
          for(int i = 0; i < 31; i++)
          {
@@ -94,11 +95,11 @@ public class Game implements Runnable{
          
             int Iron = (int)(Math.random()*11);
          
-            arr[i] = new Planet(x,y,t,0,img,"Santron",Iron, r, name, A);
+            arr[i] = new Planet(x,y,t,0,img,"Jawa",Iron, r, name, A);
          
          }
-         arr[p1.firstPlanet].switchOwner(p1.myRace);
-         arr[p2.firstPlanet].switchOwner(p2.myRace);
+         arr[p1.firstPlanet].switchPlayer(p1);
+         arr[p2.firstPlanet].switchPlayer(p2);
       }
       catch(Exception e){System.out.println("Not initialized");}
 
@@ -184,9 +185,12 @@ public class Game implements Runnable{
       BufferedImage buttonIcon = ImageIO.read(new File(arr[i].getImagePath()));
       icon[i] = scaleDown(buttonIcon);
       arr[i].update(x,icon[i],g, panel);
+      g.setFont(new Font(Font.SERIF, 1, 24));
+      g.setColor(Color.blue);
       g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
       g.drawImage(icon[i], null, arr[i].myX, arr[i].myY); 
-      arr[i].Radius = icon[i].getWidth() * .1;   
+      arr[i].Radius = icon[i].getWidth() * .1;
+       g.drawString(arr[i].name, arr[i].myX, arr[i].myY);
    }
    private class MouseControl extends MouseAdapter{
       public void mouseClicked(MouseEvent e) {
@@ -194,7 +198,7 @@ public class Game implements Runnable{
          int y=e.getY();
          for(int i = 0; i < arr.length; i++) {
             if(arr[i].liesInPlanet(x,y))
-               arr[i].displayInfo(arr, panel, currentPlayer());
+               arr[i].displayInfo(arr, panel, currentPlayer(), g);
          }
          
       }
@@ -255,7 +259,7 @@ public class Game implements Runnable{
    }
    
    private void render() {
-      Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
+      g = (Graphics2D) bufferStrategy.getDrawGraphics();
       imgb.paintIcon(panel,g,0,0);
       render(g, arr);
       g.dispose();
@@ -289,7 +293,14 @@ public class Game implements Runnable{
       }
       for(int i = 0; i < arr.length; i++)
       {
+         g.setColor(Color.white);
+         if(arr[i].myPlayer.isMe(currentPlayer()))
          g.drawOval(arr[i].myX,arr[i].myY, (int)arr[i].Radius, (int)arr[i].Radius);
+
+         else {
+            g.setColor(Color.black);
+            g.drawOval(arr[i].myX,arr[i].myY, (int)arr[i].Radius, (int)arr[i].Radius);
+         }
           arr[i].displayShips(g, arr[i]);
       }
    }

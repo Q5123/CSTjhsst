@@ -90,7 +90,7 @@ public class start extends JPanel {
             jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
             jScrollPane1.setViewportView(jTextPane1);
 
-            jTextField2.setText("");
+            jTextField2.setText("Cybermen");
 
             jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
             jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -99,7 +99,7 @@ public class start extends JPanel {
             jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
             jLabel2.setText("Choose player 2 Race");
 
-            jTextField1.setText("");
+            jTextField1.setText("Human");
 
             jButton1.setLabel("Start");
             jButton1.addActionListener(new Listener());

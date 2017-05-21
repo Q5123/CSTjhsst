@@ -36,6 +36,7 @@ public class Ships
    public Boolean atk;
    double slope;
    int b;
+   public boolean reached;
    Planet myPlanet;
    
    public void setX(int mx)
@@ -120,12 +121,21 @@ public class Ships
          atk = true;
       }
       
-      else {
+      else if(!reached){
          BufferedImage ship = img;
          g.drawImage(ship, myX, myY, null);
          myX+= mySpeed;
          myY = (int)((slope * myX) + b);
+         if(distance(myX, myY, arg2.getCenter()[0], arg2.getCenter()[1]) < myDistance)
+         {
+            reached = true;
+         }
       }
+   }
+
+   public double distance(double x1, double y1, double x2, double y2)
+   {
+      return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
    }
    public BufferedImage scaleDown(BufferedImage img)
    {
