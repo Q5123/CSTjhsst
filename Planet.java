@@ -43,7 +43,7 @@ public class Planet
    {
       img = i;
       myTier = t;
-      Race= s;
+      Race = s;
       Iron = iro;
       myPlayer = p;
       myStrength = mS + (t/2) + p.getBenefits("atk");
@@ -157,7 +157,7 @@ public class Planet
       return myShipsT1 + myShipsT2 + myShipsT3 + (myTier / 2) + p.getBenefits("atk");
    }
    
-   public void console(String s, Planet[] p, JPanel panel)
+   public void console(String s, Planet[] p, JPanel panel, player p1)
    {
       try {
          String j = s.substring(0, s.indexOf("."));
@@ -219,9 +219,15 @@ public class Planet
 
       if(s.equals("build"))
       {
-          int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
-          myShipsT1 += amount;
-          Iron -= amount;
+         if(myPlayer.isMe(p1)) {
+            int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
+            myShipsT1 += amount;
+            Iron -= amount;
+         }
+
+         else{
+            JOptionPane.showMessageDialog(panel, "This isn't your planet");
+         }
 
       }
       
@@ -241,13 +247,6 @@ public class Planet
    public int[] getStored()
    {
       return stored;
-   }
-      
-   public void myShipsAtkT1(Graphics g)
-   {
-         
-      
-      
    }
    
    
@@ -269,10 +268,10 @@ public class Planet
       return dx * dx + dy * dy <= r * r;
    } 
    
-   public void displayInfo(Planet[] arg, JPanel p)
+   public void displayInfo(Planet[] arg, JPanel p, player p1)
    {
       System.out.println("Clicked " + name);
-      console(JOptionPane.showInputDialog(null, getInfo()), arg, p);
+      console(JOptionPane.showInputDialog(null, getInfo()), arg, p, p1);
    }
    public void switchOwner(String s)
    {

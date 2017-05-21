@@ -90,7 +90,7 @@ public class start extends JPanel {
             jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
             jScrollPane1.setViewportView(jTextPane1);
 
-            jTextField2.setText("Jawa");
+            jTextField2.setText("");
 
             jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
             jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -99,7 +99,7 @@ public class start extends JPanel {
             jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
             jLabel2.setText("Choose player 2 Race");
 
-            jTextField1.setText("Jawa");
+            jTextField1.setText("");
 
             jButton1.setLabel("Start");
             jButton1.addActionListener(new Listener());
@@ -227,8 +227,8 @@ public class start extends JPanel {
             {
                 b = (int)(Math.random() * 12 + 1);
             }
-            player p1 = new player(getRaceChoice(jTextField1), a);
-            player p2 = new player(getRaceChoice(jTextField2), b);
+            player p1 = new player(a , getRaceChoice(jTextField2));
+            player p2 = new player(b , getRaceChoice(jTextField1));
 
             Game ex = new Game(p1,p2);
             new Thread(ex).start();

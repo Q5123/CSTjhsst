@@ -101,19 +101,22 @@ public class Game implements Runnable{
          arr[p2.firstPlanet].switchOwner(p2.myRace);
       }
       catch(Exception e){System.out.println("Not initialized");}
-      
-      
 
+
+    A.setMyTurn();
       
       panel.add(canvas, BorderLayout.CENTER);
 
       JPanel southPanel = new JPanel(new BorderLayout());
+       JLabel turnLabel = new JLabel(currentPlayer().myRace);
+       southPanel.add(turnLabel, BorderLayout.WEST);
       JButton endTurn = new JButton("end Turn");
       endTurn.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
 
               switchTurn();
+              turnLabel.setText(currentPlayer().myRace);
 
           }
       });
@@ -163,6 +166,17 @@ public class Game implements Runnable{
             A.myTurn = false;
             p1.myTurn = true;
         }
+
+    }
+
+    public player currentPlayer()
+    {
+       if(p1.myTurn)
+          return p1;
+       else if(p2.myTurn)
+          return p2;
+       else
+          return A;
     }
    
    public void displayButton(int i, Graphics2D g) throws Exception
@@ -174,25 +188,13 @@ public class Game implements Runnable{
       g.drawImage(icon[i], null, arr[i].myX, arr[i].myY); 
       arr[i].Radius = icon[i].getWidth() * .1;   
    }
-   
-   public void ships(Graphics2D g)
-   {
-      
-   
-   
-   
-   }
-
-
-   
-        
    private class MouseControl extends MouseAdapter{
       public void mouseClicked(MouseEvent e) {
          int x=e.getX();
          int y=e.getY();
          for(int i = 0; i < arr.length; i++) {
             if(arr[i].liesInPlanet(x,y))
-               arr[i].displayInfo(arr, panel);
+               arr[i].displayInfo(arr, panel, currentPlayer());
          }
          
       }
@@ -294,7 +296,6 @@ public class Game implements Runnable{
    public static void main(String [] args){
       player p1 = new player(1, 1);
       player p2 = new player(2, 2);
-
       Game ex = new Game(p1,p2);
 
    }

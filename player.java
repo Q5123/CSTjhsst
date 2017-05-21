@@ -54,6 +54,16 @@ public class player
       return planets;
    }
 
+   public boolean isMe(player p){
+       if(myRace.equals(p.myRace))
+       {
+           return true;
+       }
+       else{
+           return false;
+       }
+   }
+
    public void addPlanet(int x)
    {
       planets.add(x);
