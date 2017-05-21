@@ -90,7 +90,7 @@ public class Ships
    {
       if(Orbiting == true){}
       else {
-         myDistance = 25;
+         myDistance = 5;
          myDistance += (int)(arg.getRadius()); //Sets the distance that it orbits at
          myOrbit = (myDistance * 2 * Math.PI);
          myAngle = (mySpeed * myDistance)/360;
@@ -103,7 +103,7 @@ public class Ships
       int planetX = arg.getX(); 
       int planetY = arg.getY();
       myX = (int)(Math.cos(Math.toRadians(myAnglePos)) * myDistance) + planetX;
-      myY = (int)(Math.sin(Math.toRadians(myAnglePos)) * myDistance) + planetY; //Finds ship's current x and y coordinates.
+      myY = (int)(-Math.sin(Math.toRadians(myAnglePos)) * myDistance) + planetY; //Finds ship's current x and y coordinates.
       myAnglePos += myAngle;
       if(myAnglePos > 360)
          myAnglePos -= 360; //Increments the angle pos of the ship.
