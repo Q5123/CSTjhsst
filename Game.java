@@ -95,7 +95,7 @@ public class Game implements Runnable{
          
             int Iron = (int)(Math.random()*11);
          
-            arr[i] = new Planet(x,y,t,0,img,"Jawa",Iron, r, name, A);
+            arr[i] = new Planet(x,y,t,0,img,"Jawa",Iron, r, name, A, panel);
          
          }
          arr[p1.firstPlanet].switchPlayer(p1);

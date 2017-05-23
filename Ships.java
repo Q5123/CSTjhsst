@@ -107,8 +107,7 @@ public class Ships
       myAnglePos += myAngle;
       if(myAnglePos > 360)
          myAnglePos -= 360; //Increments the angle pos of the ship.
-      
-      g.drawImage(scaleDown(img), myX, myY, null);
+      update(myAngle, scaleDown(img), g, myPanel);
    }
    public void Attack(Planet arg2, Graphics g)
    {

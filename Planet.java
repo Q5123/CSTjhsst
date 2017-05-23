@@ -40,7 +40,8 @@ public class Planet
    public int[] stored;
    public player myPlayer;
    public int myOff;
-   public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p)
+   public JPanel myPanel;
+   public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p, JPanel pan)
    {
       img = i;
       myTier = t;
@@ -53,6 +54,7 @@ public class Planet
       myY = y;
       name = n;
       myShips = new ArrayList<Ships>();
+      myPanel = pan;
    }
 
    public void switchPlayer(player p)
@@ -120,16 +122,13 @@ public class Planet
               p.myShips.add(myShips.get(i));
 
               myShips.remove(i);
-
           }
        }
-      
-   
    }
 
    public void addShips(Planet arg)
    {
-       myShips.add(new Ships(0,0,10, 127, Race, null, "1B"));
+       myShips.add(new Ships(0,0,10, 127, Race, myPanel, "1B"));
        myShips.get(myShips.size() - 1).newOrbit(arg);
    }
    public void displayShips(Graphics g, Planet arg)
