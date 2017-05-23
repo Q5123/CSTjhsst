@@ -185,12 +185,12 @@ public class Game implements Runnable{
       BufferedImage buttonIcon = ImageIO.read(new File(arr[i].getImagePath()));
       icon[i] = scaleDown(buttonIcon);
       arr[i].update(x,icon[i],g, panel);
-      g.setFont(new Font(Font.SERIF, 1, 24));
+      g.setFont(new Font("Tunga", 1, 24));
       g.setColor(Color.blue);
       g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
       g.drawImage(icon[i], null, arr[i].myX, arr[i].myY); 
       arr[i].Radius = icon[i].getWidth() * .1;
-       g.drawString(arr[i].name, arr[i].myX, arr[i].myY);
+      g.drawString(arr[i].name, arr[i].myX, arr[i].myY);
    }
    private class MouseControl extends MouseAdapter{
       public void mouseClicked(MouseEvent e) {
