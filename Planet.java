@@ -131,7 +131,7 @@ public class Planet
        myShips.add(new Ships(0,0,10, 127, Race, myPanel, "1B"));
        myShips.get(myShips.size() - 1).newOrbit(arg);
    }
-   public void displayShips(Graphics g, Planet arg)
+   public void displayShips(Graphics2D g, Planet arg)
    {
        if(myShips.size() == myShipsT1)
        for(int i = 0; i < myShips.size(); i++ )

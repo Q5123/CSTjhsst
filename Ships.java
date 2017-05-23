@@ -98,7 +98,7 @@ public class Ships
          Orbiting = true;
       }
    }
-   public void drawCirclePath(Planet arg, Graphics g) //Draws the ship where it is.
+   public void drawCirclePath(Planet arg, Graphics2D g) //Draws the ship where it is.
    {
       int planetX = arg.getX(); 
       int planetY = arg.getY();
