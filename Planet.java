@@ -296,10 +296,4 @@ public class Planet
       String s ="Name: " + name + "\n" + "Owner: " + Race + "\n " + " Iron : " + Iron + "\n " + " Strength : " + myStrength + "\n ";
       return s;
    }
-
-   public void attack(Planet p)
-   {
-
-   }
-      
 }
