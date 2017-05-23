@@ -107,7 +107,10 @@ public class Ships
       myAnglePos += myAngle;
       if(myAnglePos > 360)
          myAnglePos -= 360; //Increments the angle pos of the ship.
-      update(myAngle, scaleDown(img), g, myPanel);
+      AffineTransform rot = new AffineTransform();
+      rot.rotate(Math.toRadians(myAngle), (double)myX, (double)myY);
+      g.drawImage(scaleDown(img), rot, null);
+      g.drawImage(scaleDown(img), myX, myY, null);
    }
    public void Attack(Planet arg2, Graphics g)
    {
@@ -130,12 +133,6 @@ public class Ships
             reached = true;
          }
       }
-   }
-   public void update(double x, BufferedImage im, Graphics2D g, JPanel panel)
-   {
-     AffineTransform rot = new AffineTransform();
-     rot.rotate(Math.toRadians(45), myX, myY);
-     g.drawImage(im, rot, panel);  
    }
 
    public double distance(double x1, double y1, double x2, double y2)
