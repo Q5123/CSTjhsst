@@ -132,6 +132,12 @@ public class Ships
          }
       }
    }
+   public void update(double x, BufferedImage im, Graphics2D g, JPanel panel)
+   {
+     AffineTransform rot = new AffineTransform();
+     rot.rotate(Math.toRadians(45), myX, myY);
+     g.drawImage(im, rot, panel);  
+   }
 
    public double distance(double x1, double y1, double x2, double y2)
    {
