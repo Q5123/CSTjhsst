@@ -94,10 +94,10 @@ public class start extends JPanel {
 
             jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
             jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel1.setText("Choose player 1 Race");
+            jLabel1.setText('\t' + "Choose player 1 Race");
 
             jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-            jLabel2.setText("Choose player 2 Race");
+            jLabel2.setText('\t' + "Choose player 2 Race");
 
             jTextField1.setText("Human");
 
@@ -119,7 +119,7 @@ public class start extends JPanel {
                                             .addComponent(jTextField1))
                                     .addContainerGap())
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(146, 146, 146)
+                                    .addGap(250, 256, 262)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addContainerGap(147, Short.MAX_VALUE))
             );
@@ -140,7 +140,7 @@ public class start extends JPanel {
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addContainerGap(49, Short.MAX_VALUE))
             );
-
+            
             jTabbedPane2.addTab("Start", jPanel1);
 
             jTextArea1.setColumns(20);
