@@ -49,6 +49,10 @@ public class player
         myTurn = Boolean.parseBoolean(null);
     }
    
+   public boolean isMyTurn()
+   {
+      return myTurn;
+   }
    public ArrayList<Integer> getPlanets()
    {
       return planets;
