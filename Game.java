@@ -11,6 +11,7 @@ import java.io.File;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.util.*;
+import java.net.URL;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -34,6 +35,7 @@ public class Game implements Runnable{
    public Scanner h;
    public File f;
    public File j;
+   public Font atomicAge;
    public Graphics2D g;
 
 
@@ -100,6 +102,12 @@ public class Game implements Runnable{
          }
          arr[p1.firstPlanet].switchPlayer(p1);
          arr[p2.firstPlanet].switchPlayer(p2);
+         
+         File atomicFile  = new File("atomicage-regular.ttf"); //gets the Atomic Age font as a File
+         URL fontURL = atomicFile.toURI().toURL(); //Sets the File to a URL
+         atomicAge = Font.createFont(Font.TRUETYPE_FONT, fontURL.openStream()); //Creates the font atomicAge
+         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment(); //Creates new GraphicsEnvironment
+         ge.registerFont(atomicAge); //Registers the atomicAge font
       }
       catch(Exception e){System.out.println("Not initialized");}
 
