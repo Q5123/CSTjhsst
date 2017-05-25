@@ -94,10 +94,10 @@ public class start extends JPanel {
 
             jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
             jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel1.setText('\t' + "Choose player 1 Race");
+            jLabel1.setText("Choose player 1 Race");
 
             jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-            jLabel2.setText('\t' + "Choose player 2 Race");
+            jLabel2.setText("Choose player 2 Race");
 
             jTextField1.setText("Human");
 
