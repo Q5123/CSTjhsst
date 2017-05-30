@@ -134,23 +134,24 @@ public class Ships
          }
       }
    }
-
+   //scale down stuff
+   public BufferedImage scaleDown(BufferedImage img, double x)
+   {
+      int w = img.getWidth();                                                                //gets the width of the image
+      int h = img.getHeight();                                                               //gets the height of the image
+      BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);            //makes the image that will be used
+      AffineTransform at = new AffineTransform();                                            //makes the image resizeable
+      at.scale(x, x);                                                                        //sets the size
+      AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);//transforms the image
+      after = scaleOp.filter(img, after);                                                    //sets after image to resized image
+      return after;                                                                          //returns resized image
+   } 
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   //distance formula
    public double distance(double x1, double y1, double x2, double y2)
    {
-      return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
-   }
-   public BufferedImage scaleDown(BufferedImage img)
-   {
-      int w = img.getWidth();
-      int h = img.getHeight();
-      BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-      AffineTransform at = new AffineTransform();
-      at.scale(.3, .3);
-      AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-      after = scaleOp.filter(img, after);
-      return after;
-
-
-   }
+      return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));                                   //distance formula
+   } 
+}
    
 }
