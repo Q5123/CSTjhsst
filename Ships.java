@@ -86,6 +86,19 @@ public class Ships
       Orbiting = false;
       atk = false;
    }
+   public Ships(int mx, int my, int s, int d, String race, JPanel p, int tier)
+   {
+      myX = mx;
+      myY = my;
+      myDistance = d;
+      Owner = race;
+      mySpeed  = s;
+      myPanel = p;
+      //setImagePath(i);
+      Orbiting = false;
+      atk = false;
+      setImagePath(race+tier);   
+   }
    public void newOrbit(Planet arg) //Initializes a new orbit.
    {
       if(Orbiting == true){}
