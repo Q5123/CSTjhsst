@@ -124,17 +124,17 @@ public class Ships
          myAnglePos -= 360; //Increments the angle pos of the ship.
       /////////////////////////////////////////////////////////////////////////////////////
       AffineTransform saveCurrent = g.getTransform();
-      BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);            //makes the image that will be used
+      BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB); 
+      AffineTransform rot = AffineTransform.getTranslateInstance(h, w);
+      rot.rotate(Math.toRadians(-myAnglePos));
+      AffineTransform placeImg = new AffineTransform();
+      placeImg.concatenate(rot); 
+      /////////////////////////////////////////////////////////////////////////////////////
       AffineTransform at = new AffineTransform();                                            //makes the image resizeable
       at.scale(0.2, 0.2);                                                                        //sets the size
       AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);//transforms the image
       after = scaleOp.filter(img, after);   
       /////////////////////////////////////////////////////////////////////////////////////                  
-      AffineTransform rot = AffineTransform.getTranslateInstance(w, h);
-      rot.rotate(Math.toRadians(-myAnglePos));
-      AffineTransform placeImg = new AffineTransform();
-      placeImg.concatenate(rot);
-      placeImg.translate(myY, myX);
       g.drawImage(after, placeImg, null);
    }
    public void Attack(Planet arg2, Graphics g)
