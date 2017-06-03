@@ -117,8 +117,8 @@ public class Ships
       int planetY = arg.getY();
       int w = img.getWidth();                                                                //gets the width of the image
       int h = img.getHeight();                                                               //gets the height of the image
-      myX = (int)(Math.cos(Math.toRadians(myAnglePos)) * myDistance) + planetX;
-      myY = (int)(-Math.sin(Math.toRadians(myAnglePos)) * myDistance) + planetY; //Finds ship's current x and y coordinates.
+      myX = (int)(Math.cos(Math.toRadians(myAnglePos)) * myDistance * 0.8) + planetX;
+      myY = (int)(-Math.sin(Math.toRadians(myAnglePos)) * myDistance * 0.8) + planetY; //Finds ship's current x and y coordinates.
       myAnglePos += myAngle;
       if(myAnglePos > 360)
          myAnglePos -= 360; //Increments the angle pos of the ship.
@@ -128,6 +128,7 @@ public class Ships
       AffineTransform rot = AffineTransform.getTranslateInstance(h, w);
       rot.rotate(Math.toRadians(-myAnglePos));
       AffineTransform placeImg = new AffineTransform();
+      placeImg.translate(myX, myY);
       placeImg.concatenate(rot); 
       /////////////////////////////////////////////////////////////////////////////////////
       AffineTransform at = new AffineTransform();                                            //makes the image resizeable
