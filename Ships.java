@@ -115,15 +115,27 @@ public class Ships
    {
       int planetX = arg.getX(); 
       int planetY = arg.getY();
+      int w = img.getWidth();                                                                //gets the width of the image
+      int h = img.getHeight();                                                               //gets the height of the image
       myX = (int)(Math.cos(Math.toRadians(myAnglePos)) * myDistance) + planetX;
       myY = (int)(-Math.sin(Math.toRadians(myAnglePos)) * myDistance) + planetY; //Finds ship's current x and y coordinates.
       myAnglePos += myAngle;
       if(myAnglePos > 360)
          myAnglePos -= 360; //Increments the angle pos of the ship.
-      AffineTransform rot = new AffineTransform();
-      rot.rotate(Math.toRadians(myAngle), (double)myX, (double)myY);
-      g.drawImage(scaleDown(img), rot, null);
-      g.drawImage(scaleDown(img), myX, myY, null);
+      /////////////////////////////////////////////////////////////////////////////////////
+      AffineTransform saveCurrent = g.getTransform();
+      BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);            //makes the image that will be used
+      AffineTransform at = new AffineTransform();                                            //makes the image resizeable
+      at.scale(0.2, 0.2);                                                                        //sets the size
+      AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);//transforms the image
+      after = scaleOp.filter(img, after);   
+      /////////////////////////////////////////////////////////////////////////////////////                  
+      AffineTransform rot = AffineTransform.getTranslateInstance(w, h);
+      rot.rotate(Math.toRadians(-myAnglePos));
+      AffineTransform placeImg = new AffineTransform();
+      placeImg.concatenate(rot);
+      placeImg.translate(myY, myX);
+      g.drawImage(after, placeImg, null);
    }
    public void Attack(Planet arg2, Graphics g)
    {
@@ -148,17 +160,7 @@ public class Ships
       }
    }
    //scale down stuff
-   public BufferedImage scaleDown(BufferedImage img, double x)
-   {
-      int w = img.getWidth();                                                                //gets the width of the image
-      int h = img.getHeight();                                                               //gets the height of the image
-      BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);            //makes the image that will be used
-      AffineTransform at = new AffineTransform();                                            //makes the image resizeable
-      at.scale(x, x);                                                                        //sets the size
-      AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);//transforms the image
-      after = scaleOp.filter(img, after);                                                    //sets after image to resized image
-      return after;                                                                          //returns resized image
-   } 
+
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    //distance formula
    public double distance(double x1, double y1, double x2, double y2)
