@@ -35,6 +35,7 @@ public class Ships
    public Boolean Orbiting;
    public Boolean atk;
    double slope;
+   private double myScale = 0.2;
    int b;
    public boolean reached;
    Planet myPlanet;
@@ -49,7 +50,14 @@ public class Ships
       myY = my;
    }
    
-
+   public void setScale(int s)
+   {
+      myScale = s;
+   }
+   public double getScale()
+   {
+      return myScale;
+   }
    public void setImagePath(String s) {
 
       try {
@@ -117,8 +125,8 @@ public class Ships
       int planetY = arg.getY();
       int w = img.getWidth();                                                                //gets the width of the image
       int h = img.getHeight();                                                               //gets the height of the image
-      myX = (int)(Math.cos(Math.toRadians(myAnglePos)) * myDistance * 0.8) + planetX;
-      myY = (int)(-Math.sin(Math.toRadians(myAnglePos)) * myDistance * 0.8) + planetY; //Finds ship's current x and y coordinates.
+      myX = (int)(Math.cos(Math.toRadians(myAnglePos)) * myDistance) + planetX;
+      myY = (int)(-Math.sin(Math.toRadians(myAnglePos)) * myDistance) + planetY; //Finds ship's current x and y coordinates.
       myAnglePos += myAngle;
       if(myAnglePos > 360)
          myAnglePos -= 360; //Increments the angle pos of the ship.
@@ -128,7 +136,7 @@ public class Ships
       AffineTransform rot = AffineTransform.getTranslateInstance(h, w);
       rot.rotate(Math.toRadians(-myAnglePos));
       AffineTransform placeImg = new AffineTransform();
-      placeImg.translate(myX, myY);
+      placeImg.translate(myX * (1 - myScale), myY * (1 - myScale));
       placeImg.concatenate(rot); 
       /////////////////////////////////////////////////////////////////////////////////////
       AffineTransform at = new AffineTransform();                                            //makes the image resizeable
