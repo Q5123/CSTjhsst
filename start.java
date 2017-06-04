@@ -232,6 +232,8 @@ public class start extends JPanel {
 
             Game ex = new Game(p1,p2);
             new Thread(ex).start();
+            Sound s = new Sound();
+            new Thread(s).start();
         }
     }
 
