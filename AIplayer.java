@@ -13,4 +13,8 @@ public class AIplayer extends player{
     {
         return 0;
     }
+    public void makeMove(Ships[] myShips, planet[] myPlanets)
+    {
+        
+    }
 }
