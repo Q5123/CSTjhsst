@@ -1,3 +1,4 @@
+//import all packages
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.MouseAdapter;
@@ -11,73 +12,79 @@ import java.io.File;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.util.*;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-
-
-
+//Game class
 public class Game implements Runnable{
+   //all fields
    public BufferedImage[] icon;
    final int WIDTH = 1600;
    final int HEIGHT = 900;
    public Planet[] arr;
    public ImageIcon imgb;
    public JFrame frame;
-   public Canvas canvas;
+   public Canvas canvas; //displays and updates the stuff on the screen
    public JPanel panel;
    public player p1;
    public player p2;
    public AIplayer A;
-   public Scanner sl;
-   public Scanner h;
-   public File f;
-   public File j;
+   public Scanner sl; //reads file f
+   public Scanner h; //reads file j
+   public File f; //planet info
+   public File j; //planet names
    public Graphics2D g;
-
-
+   
+   //more fields
    BufferStrategy bufferStrategy;
    public boolean needsInstantiation;
    public Ships s;
-
-   ArrayList<Boolean> needsInstance;
-   ArrayList<Ships> ActShips;
-   ArrayList<Integer> reference;
    
-
-   public Game(player px1, player px2){
+   ArrayList<Boolean> needsInstance; //keeps track of ship instantiation
+   ArrayList<Ships> ActShips; //holds ships
+   ArrayList<Integer> reference; //holds ship information
+   
+   //Game constructor
+   public Game(player px1, player px2)
+   {
       frame = new JFrame("Basic Game");
       needsInstantiation = true;
       panel = (JPanel) frame.getContentPane();
       panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
       panel.setLayout(new BorderLayout());
       imgb = new ImageIcon("game background.jpg");
+      
+      //instantitates the canvas and sets boundary
       canvas = new Canvas();
       canvas.setBounds(0, 0, WIDTH, HEIGHT);
       canvas.setIgnoreRepaint(true);
+      
       arr = new Planet[10];
       icon = new BufferedImage[arr.length];
       needsInstance = new ArrayList<Boolean>();
       ActShips = new ArrayList<Ships>();
       reference = new ArrayList<Integer>();
+      
+      //instantiates players
       p1 = px1;
       p2 = px2;
       A = new AIplayer(arr);
       
+      //checks if if files are avalible
       try{
          f = new File("Map1.txt");
          sl = new Scanner(f);
          j = new File("Names.txt");
          h = new Scanner(j);
-         ArrayList<String> namas = new ArrayList<String>(10);
-         for(int i = 0; i < 31; i++)
+         
+         ArrayList<String> namas = new ArrayList<String>(10); //array of planet
+         for(int i = 0; i < 31; i++) //takes planet names from file and transfers to namas
          {
             namas.add(i, h.nextLine());
-         }
-            
-         for(int i = 0; i < arr.length; i++)
+         }  
+         for(int i = 0; i < arr.length; i++) //creates planets based on information in file sl
          {
+            //planet constructor arguments
             int x = sl.nextInt();
             int y = sl.nextInt();
             int t = (int)(Math.random()*5);
@@ -88,46 +95,39 @@ public class Game implements Runnable{
             if(im < 10) {
                img = "0" + im;
             }
-            
             else {
                img = "" + im;
             }
-         
             int Iron = (int)(Math.random()*11);
-         
-            arr[i] = new Planet(x,y,t,0,img,"Jawa",Iron, r, name, A, panel);
-         
+
+            arr[i] = new Planet(x,y,t,0,img,"Jawa",Iron, r, name, A, panel); //instantiates planets
          }
+         //all planets start owned by ai, so this splits them evenly between all the players
          arr[p1.firstPlanet].switchPlayer(p1);
          arr[p2.firstPlanet].switchPlayer(p2);
       }
       catch(Exception e){System.out.println("Not initialized");}
-
-
-    A.setMyTurn();
       
-      panel.add(canvas, BorderLayout.CENTER);
-
+      A.setMyTurn();
+      
+      //adds bottom bar that controls turns and tells player race
+      panel.add(canvas, BorderLayout.CENTER); 
       JPanel southPanel = new JPanel(new BorderLayout());
-       JLabel turnLabel = new JLabel(currentPlayer().myRace);
-       southPanel.add(turnLabel, BorderLayout.WEST);
+      JLabel turnLabel = new JLabel(currentPlayer().myRace);
+      southPanel.add(turnLabel, BorderLayout.WEST);
+      //adds button that switches turns
       JButton endTurn = new JButton("end Turn");
       endTurn.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-
               switchTurn();
               turnLabel.setText(currentPlayer().myRace);
-
           }
       });
       southPanel.add(endTurn,BorderLayout.EAST);
-
       panel.add(southPanel, BorderLayout.SOUTH);
 
-
-      
-      canvas.addMouseListener(new MouseControl());
+      canvas.addMouseListener(new MouseControl()); //listener that checks for mouse actions within canvas borders
       
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.pack();
@@ -152,7 +152,7 @@ public class Game implements Runnable{
             
       }
    }
-    public void switchTurn()
+    public void switchTurn() //switches turns between players
     {
         if(p1.myTurn)
         {
@@ -170,7 +170,7 @@ public class Game implements Runnable{
 
     }
 
-    public player currentPlayer()
+    public player currentPlayer() //gets what player's turn it currently is
     {
        if(p1.myTurn)
           return p1;
@@ -180,14 +180,14 @@ public class Game implements Runnable{
           return A;
     }
    
-   public void displayButton(int i, Graphics2D g) throws Exception
+   public void displayButton(int i, Graphics2D g) throws Exception //displays buttons on the game
    {
       BufferedImage buttonIcon = ImageIO.read(new File(arr[i].getImagePath()));
       icon[i] = scaleDown(buttonIcon);
       arr[i].update(x,icon[i],g, panel);
       g.setFont(new Font("Tunga", 1, 24));
       g.setColor(Color.blue);
-      g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+      g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC); //part of scaling the image
       g.drawImage(icon[i], null, arr[i].myX, arr[i].myY); 
       arr[i].Radius = icon[i].getWidth() * .1;
       g.drawString(arr[i].name, arr[i].myX, arr[i].myY);
