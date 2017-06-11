@@ -249,6 +249,36 @@ public class Planet
       
    }
    
+   public void AiConsole(String s, int x, int t)
+   {
+      switch(s){
+      case "build":
+      switch(t){
+      case 1:
+      myShipsT1 += x;
+      break;
+      case 2:
+      myShipsT2 += x;
+      break;
+      case 3:
+      myShipsT3 += x;
+      break;
+      
+      
+      
+      }
+      break;
+      
+      default:
+      break;
+      
+      
+      }
+   
+   
+   
+   }
+   
    public void store(int a, int b, int c)
    {
       stored = new int[3];
