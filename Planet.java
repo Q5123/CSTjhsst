@@ -1,3 +1,4 @@
+//import necessary packages
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
@@ -19,9 +20,11 @@ import java.awt.Color;
 import java.awt.RenderingHints;
 import java.awt.Image;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer; 
+
 public class Planet
 {
+   //Fields
    public String img;
    public int myTier;
    public int myShipsT1;
@@ -42,34 +45,35 @@ public class Planet
    public int myOff;
    public JPanel myPanel;
    public int IronUsed;
-   public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p, JPanel pan)
+   public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p, JPanel pan) //constructor
    {
-      img = i;
-      myTier = t;
-      Race = s;
+      img = i; //planet appearance
+      myTier = t; 
+      Race = s; //which race controls the planet
       Iron = iro;
-      myPlayer = p;
+      myPlayer = p; //player that controls the planet
       myStrength = mS + (t/2) + p.getBenefits("atk");
-      Radius = r;
-      myX = x;
+      Radius = r; //size
+      myX = x; //location on the map
       myY = y;
       name = n;
-      myShips = new ArrayList<Ships>();
+      myShips = new ArrayList<Ships>(); //ships the planet has
       myPanel = pan;
    }
 
-   public void switchPlayer(player p)
+   public void switchPlayer(player p) //switches which player controls the planet
    {
       myPlayer = p;
       Race = p.myRace;
    }
 
-   public boolean isMyPlayer(player p)
+   public boolean isMyPlayer(player p) //checks if there player that controls the planet matches
    {
       if(p.myRace.equals(myPlayer.myRace))
          return true;
       return false;
-   }
+   } 
+   //Accessor methods
    public double getRadius()
    {
       return Radius;
@@ -84,12 +88,10 @@ public class Planet
    public String getImg() {
       return img;
    }
-   
    public int getTier() {
       return myTier;
    }
-   
-   public int getShips(int i) {
+   public int getShips(int i) { //i indicates the tier of ship
       if(i == 1)
          return myShipsT1;
       
@@ -99,19 +101,16 @@ public class Planet
       else
          return myShipsT3;
    }
-   
    public String getRace() {
       return Race;
    }
-   
    public double getStrength() {
       return myStrength;
    }
-   
    public double getCircumference() {
       return circumference;
    }
-   public void attack(Planet p, int s, Graphics2D g)
+   public void attack(Planet p, int s, Graphics2D g)//sends ships to another planet and if the amount of shops sent exceeds the planet defense, changes control of the planet attacked
    {
        if(s + myPlayer.getBenefits("atk") > p.myStrength)
        {
@@ -127,12 +126,12 @@ public class Planet
        }
    }
 
-   public void addShips(Planet arg)
+   public void addShips(Planet arg) //Increases the number of ships on the planet
    {
        myShips.add(new Ships(0,0,10, 127, Race, myPanel, "1B"));
        myShips.get(myShips.size() - 1).newOrbit(arg);
    }
-   public void displayShips(Graphics2D g, Planet arg)
+   public void displayShips(Graphics2D g, Planet arg) //displays the ships around the planet
    {
        if(myShips.size() == myShipsT1)
        for(int i = 0; i < myShips.size(); i++ )
@@ -144,7 +143,7 @@ public class Planet
            displayShips(g, arg);
        }
    }
-   public double[] getCenter()
+   public double[] getCenter() // gets the center position of the planet
    {
       double x = myX + Radius;
       double y = myY - Radius;
@@ -155,7 +154,7 @@ public class Planet
    
    }
 
-   public void update(double x, BufferedImage im, Graphics2D g, JPanel panel)
+   public void update(double x, BufferedImage im, Graphics2D g, JPanel panel) //updates the ship movement
    {
      AffineTransform rot = new AffineTransform();
      double dob[] = getCenter();
@@ -163,7 +162,7 @@ public class Planet
      g.drawImage(im, rot, panel);  
    }
    
-   public double calcStrength(Planet arg, player p)
+   public double calcStrength(Planet arg, player p) //calculates the strength of the planet based on ships it has and other benefits
    {
       return arg.getShips(1) + arg.getShips(2) + arg.getShips(3) + (arg.getTier() / 2) + p.getBenefits("atk");
    }
