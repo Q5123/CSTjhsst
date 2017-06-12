@@ -24,6 +24,8 @@ public class player
    public String myRace;
    public int firstPlanet;
    private boolean lifeStatus;
+   public int myResearch;
+   public int myTier;
    public player(int x, int r)
    {
       planets = new ArrayList<Integer>();
@@ -47,6 +49,21 @@ public class player
     public player()
     {
         myTurn = Boolean.parseBoolean(null);
+    }
+
+    public void addResearch(int x) {
+       myResearch += x + getBenefits("research");
+        if(myResearch > 10 && myResearch < 30)
+        {
+            myTier = 2;
+        }
+
+        else if(myResearch > 10)
+        {
+            myTier = 3;
+        }
+
+
     }
    
    public boolean isMyTurn()

@@ -41,6 +41,7 @@ public class Planet
    public player myPlayer;
    public int myOff;
    public JPanel myPanel;
+   public int IronUsed;
    public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p, JPanel pan)
    {
       img = i;
@@ -110,7 +111,7 @@ public class Planet
    public double getCircumference() {
       return circumference;
    }
-   public void attack(Planet p, int s, Graphics g)
+   public void attack(Planet p, int s, Graphics2D g)
    {
        if(s + myPlayer.getBenefits("atk") > p.myStrength)
        {
@@ -171,7 +172,7 @@ public class Planet
       return myShipsT1 + myShipsT2 + myShipsT3 + (myTier / 2) + p.getBenefits("atk");
    }
    
-   public void console(String s, Planet[] p, JPanel panel, player p1, Graphics g)
+   public void console(String s, Planet[] p, JPanel panel, player p1, Graphics2D g)
    {
       try {
          String j = s.substring(0, s.indexOf("."));
@@ -230,12 +231,63 @@ public class Planet
          }
       }
 
+      if(s.equals("research"))
+      {
+          if(myPlayer.isMe(p1))
+          {
+              int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
+              myPlayer.addResearch(amount);
+              if(amount < Iron - IronUsed)
+              IronUsed += amount;
+
+              else{
+                  JOptionPane.showConfirmDialog(panel, "You don't have enough Iron");
+              }
+          }
+
+
+      }
+
       if(s.equals("build"))
       {
          if(myPlayer.isMe(p1)) {
             int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
-            myShipsT1 += amount;
-            Iron -= amount;
+            if(myPlayer.myTier == 1) {
+                if(amount < Iron - IronUsed) {
+                    IronUsed += amount;
+                    myShipsT1 += amount;
+                }
+
+                else{
+                    JOptionPane.showConfirmDialog(panel, "You don't have enough Iron");
+                }
+
+
+            }
+
+            else if(myPlayer.myTier == 2)
+            {
+                if(amount < Iron - (IronUsed * 2)) {
+                    IronUsed += amount;
+                    myShipsT2 += amount;
+                }
+
+                else{
+                    JOptionPane.showConfirmDialog(panel, "You don't have enough Iron");
+                }
+            }
+
+            else
+            {
+                if(amount < Iron - (IronUsed * 3)) {
+                    IronUsed += amount;
+                    myShipsT3 += amount;
+                }
+
+                else{
+                    JOptionPane.showConfirmDialog(panel, "You don't have enough Iron");
+                }
+            }
          }
 
          else{
@@ -311,7 +363,7 @@ public class Planet
       return dx * dx + dy * dy <= r * r;
    } 
    
-   public void displayInfo(Planet[] arg, JPanel p, player p1, Graphics g)
+   public void displayInfo(Planet[] arg, JPanel p, player p1, Graphics2D g)
    {
       System.out.println("Clicked " + name);
       console(JOptionPane.showInputDialog(null, getInfo()), arg, p, p1, g);

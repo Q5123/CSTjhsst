@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/Example_ships.zip!/" />
       <root url="jar://$PROJECT_DIR$/planets.zip!/" />
+      <root url="jar://$PROJECT_DIR$/pagelayout1.16.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

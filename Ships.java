@@ -35,6 +35,7 @@ public class Ships
    public Boolean Orbiting; //is orbiting?
    public Boolean atk; //is in flight?
    double slope;
+   public int Strength;
    private double myScale = 0.2; //How much image is scaled down
    int b; 
    public boolean reached; //did i reach the destination?
@@ -93,7 +94,7 @@ public class Ships
       Orbiting = false;
       atk = false; //sets fields to arguments
    }
-   public Ships(int mx, int my, int s, int d, String race, JPanel p, int tier)
+   public Ships(int mx, int my, int s, int d, String race, JPanel p, player pl)
    {
       myX = mx;
       myY = my;
@@ -104,7 +105,88 @@ public class Ships
       //setImagePath(i);
       Orbiting = false;
       atk = false;
-      setImagePath(race+tier);   //Sets fields to arguments
+      switch(pl.myRace) {
+         case "Cyberman":
+            switch (pl.myTier) {
+               case 0:
+                  setImagePath("1");
+                  Strength = 1;
+                  break;
+               case 1:
+                  setImagePath("2");
+                  Strength = 2;
+                  break;
+
+               case 3:
+                  setImagePath("3");
+                  Strength = 3;
+                  break;
+
+            }
+            break;//Sets fields to arguments
+
+         case "Dalek":
+            switch (pl.myTier) {
+               case 0:
+                  setImagePath("1B");
+                  Strength = 1;
+                  break;
+               case 1:
+                  setImagePath("2B");
+                  Strength = 2;
+                  break;
+
+               case 3:
+                  setImagePath("3B");
+                  Strength = 3;
+                  break;
+
+            }
+            break;
+         case "Human":
+            switch (pl.myTier) {
+               case 0:
+                  setImagePath("4");
+                  Strength = 1;
+                  break;
+               case 1:
+                  setImagePath("5");
+                  Strength = 2;
+                  break;
+
+               case 3:
+                  setImagePath("6");
+                  Strength = 3;
+                  break;
+
+            }
+            break;
+         case "Jawa":
+            switch (pl.myTier) {
+               case 0:
+                  setImagePath("4B");
+                  Strength = 1;
+                  break;
+               case 1:
+                  setImagePath("5B");
+                  Strength = 2;
+                  break;
+
+               case 3:
+                  setImagePath("6B");
+                  Strength = 3;
+                  break;
+
+            }
+            break;
+
+         default:
+            setImagePath("1");
+            Strength = 1;
+            break;
+      }
+
+
    }
    public void newOrbit(Planet arg) //Initializes a new orbit.
    {
@@ -146,8 +228,10 @@ public class Ships
       /////////////////////////////////////////////////////////////////////////////////////Draws Image                 
       g.drawImage(after, placeImg, null); //Draw things
    }
-   public void Attack(Planet arg2, Graphics g) //Unused
-   { 
+   public void Attack(Planet arg2, Graphics2D g) //Unused
+   {
+      int w = img.getWidth();
+      int h = img.getHeight();
       if(!atk)
       {
          /////////////////////////////////////////////////////////////////////////////////////Gets Information 
@@ -156,6 +240,7 @@ public class Ships
          int planetY = arg2.myY; //Gets location of destination
          b = (int)((slope * planetX) - planetY); //The b value in y = mx + b
          atk = true; //I attack now.
+
          /////////////////////////////////////////////////////////////////////////////////////Calculations
          int yDiff = myY - planetY;
          int xDiff = myX - planetX; //Calculates vert. and horiz. components between planet and ship
