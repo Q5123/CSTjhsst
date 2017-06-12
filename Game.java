@@ -188,24 +188,22 @@ public class Game implements Runnable{
       g.setFont(new Font("Tunga", 1, 24));
       g.setColor(Color.blue);
       g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC); //part of scaling the image
-      g.drawImage(icon[i], null, arr[i].myX, arr[i].myY); 
+      //draws the button and text on it
+      g.drawImage(icon[i], null, arr[i].myX, arr[i].myY);
       arr[i].Radius = icon[i].getWidth() * .1;
-      g.drawString(arr[i].name, arr[i].myX, arr[i].myY);
+      g.drawString(arr[i].name, arr[i].myX, arr[i].myY); 
    }
-   private class MouseControl extends MouseAdapter{
+   private class MouseControl extends MouseAdapter{ //checks if the mouse clicks on planets and displays planet information
       public void mouseClicked(MouseEvent e) {
          int x=e.getX();
          int y=e.getY();
          for(int i = 0; i < arr.length; i++) {
             if(arr[i].liesInPlanet(x,y))
                arr[i].displayInfo(arr, panel, currentPlayer(), g);
-         }
-         
-      }
-      
-   }
-   
-   public BufferedImage scaleDown(BufferedImage img)
+         }  
+      }  
+   } 
+   public BufferedImage scaleDown(BufferedImage img) //scales down images
    {
       int w = img.getWidth();
       int h = img.getHeight();
@@ -215,8 +213,6 @@ public class Game implements Runnable{
       AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
       after = scaleOp.filter(img, after);
       return after;
-   
-   
    }
    
    long desiredFPS = 60;
