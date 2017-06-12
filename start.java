@@ -111,11 +111,11 @@ public class start extends JPanel {
             jButton4.setText("Start");
 
             jTextArea1 = new javax.swing.JTextArea();
-            jTextArea1.setText("Dalek: Atk bonus  Cybermen: Resource bonus Human: Research bonus Jawa: Not meant to be played by a human, meant for testing");
+            jTextArea1.setText("Dalek: Atk bonus \nCybermen: Resource bonus \nHuman: Research bonus \nJawa: Not meant to be played by a human, meant for testing");
             setTADimensions(jTextArea1, 17, 58, 246, 115, 32767, 32767, 726, 330);
 
             jTextArea3 = new javax.swing.JTextArea();
-            jTextArea3.setText("If a planet is surrounded by a white sircle it isn't your planet, if its sorouned by a  black circle then it is. If the circle is red then it is out of turns. Commands can be givin to each planet by clicking on the icon. There are four commands, build, atk, research, and terraform. Build, atk, and research are self explanatory, terraform will provide extra Iron on each planet and will allow building. Iron is needed to build and research. Once you have enough Iron you will advance a research tier. While higher tier ships require more Iron they have more atk power. Planets can only support so many ships.");
+            jTextArea3.setText("If a planet is surrounded by a white sircle it isn't your planet, if its sorouned by a  black circle then it is. If the circle is red then it is out of\n turns. Commands can be givin to each planet by clicking on the icon. There are four commands, build, atk, research, and terraform.\n Build, atk, and research are self explanatory, terraform will provide extra Iron on each planet and will allow building. Iron is needed\n to build and research. Once you have enough Iron you will advance a research tier. While higher tier ships require\n more Iron they have more atk power. Planets can only support so many ships.");
             setTADimensions(jTextArea3, 17, 58, 246, 115, 32767, 32767, 726, 330);
 
             tabbedPane6$Tab = new javax.swing.JTabbedPane();
@@ -140,7 +140,7 @@ public class start extends JPanel {
             tabbedPane6.add("Basics",jTextArea3);
 
 
-            root = column(none, none,  tabbedPane6);
+            root = column(tabbedPane6);
 
 
             setConstraints();

@@ -29,7 +29,7 @@ public class Planet
    public int myShipsT3;
    public String Race;
    public double myStrength;
-   private int Iron;
+   public  int Iron;
    public int myX;
    public int myY;
    public double Radius;
@@ -129,7 +129,7 @@ public class Planet
 
    public void addShips(Planet arg)
    {
-       myShips.add(new Ships(0,0,10, 127, Race, myPanel, "1B"));
+       myShips.add(new Ships(0,0,10, 127, Race, myPanel, myPlayer));
        myShips.get(myShips.size() - 1).newOrbit(arg);
    }
    public void displayShips(Graphics2D g, Planet arg)
@@ -237,7 +237,7 @@ public class Planet
           {
               int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
               myPlayer.addResearch(amount);
-              if(amount < Iron - IronUsed)
+              if(amount <= Iron - IronUsed)
               IronUsed += amount;
 
               else{
@@ -253,7 +253,7 @@ public class Planet
          if(myPlayer.isMe(p1)) {
             int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
             if(myPlayer.myTier == 1) {
-                if(amount < Iron - IronUsed) {
+                if(amount <= Iron - IronUsed && myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
                     IronUsed += amount;
                     myShipsT1 += amount;
                 }
@@ -267,7 +267,7 @@ public class Planet
 
             else if(myPlayer.myTier == 2)
             {
-                if(amount < Iron - (IronUsed * 2)) {
+                if(amount <= Iron - (IronUsed * 2) && myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
                     IronUsed += amount;
                     myShipsT2 += amount;
                 }
@@ -279,7 +279,7 @@ public class Planet
 
             else
             {
-                if(amount < Iron - (IronUsed * 3)) {
+                if(amount <= Iron - (IronUsed * 3)&& myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
                     IronUsed += amount;
                     myShipsT3 += amount;
                 }

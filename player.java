@@ -123,4 +123,17 @@ public class player
       lifeStatus = false;
       return lifeStatus;
    }
+
+   public int getIron(Planet[] pl) {
+       int sum = 0;
+       for(int i = 0; i < planets.size(); i++) { sum += pl[planets.get(i)].Iron;}
+       return sum;
+   }
+
+   public int getUsedIron(Planet[] pl)
+   {
+       int sum = 0;
+       for(int i = 0; i < planets.size(); i++) { sum += pl[planets.get(i)].IronUsed;}
+       return sum;
+   }
 }

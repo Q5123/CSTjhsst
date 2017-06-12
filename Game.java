@@ -279,7 +279,7 @@ public class Game implements Runnable{
    /**
     * Rewrite this method for your game
     */
-   protected void render(Graphics2D g, Planet[] arr){
+   public void render(Graphics2D g, Planet[] arr){
       
       for(int i = 0; i < arr.length; i++) {
          try{
