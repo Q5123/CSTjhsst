@@ -28,7 +28,7 @@ public class player
    public int firstPlanet;
    private boolean lifeStatus;
    public int myResearch;
-   public int myTier;
+   public int myTier = 1;
    //constructors
    public player(int x, int r)
    {
@@ -109,7 +109,7 @@ public class player
       lifeStatus = false;
       return lifeStatus;
    }
-<<<<<<< HEAD
+
 
    public int getIron(Planet[] pl) {
        int sum = 0;
@@ -123,8 +123,8 @@ public class player
        for(int i = 0; i < planets.size(); i++) { sum += pl[planets.get(i)].IronUsed;}
        return sum;
    }
-}
-=======
+
+
    //checks what benefits the player gets from their race
    public int getBenefits(String s)
     {
@@ -136,4 +136,4 @@ public class player
         }
     }
 }
->>>>>>> 0c9f860365daadcfb2c52162d61c819f140871be
+

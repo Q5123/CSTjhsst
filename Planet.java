@@ -45,12 +45,12 @@ public class Planet
    public int myOff;
    public JPanel myPanel;
    public int IronUsed;
-<<<<<<< HEAD
+
    public boolean action;
-   public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p, JPanel pan)
-=======
+
+
    public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p, JPanel pan) //constructor
->>>>>>> 0c9f860365daadcfb2c52162d61c819f140871be
+
    {
       img = i; //planet appearance
       myTier = t; 
@@ -120,13 +120,15 @@ public class Planet
        if(s + myPlayer.getBenefits("atk") > p.calcStrength(p, p.myPlayer))
        {
           double remaining = s + myPlayer.getBenefits("atk") - p.myStrength;
-          for(int i = 0; i <= s; s++)
+          if(remaining > 0)
           {
-              p.myShips.add(myShips.get(i));
-
+              p.switchOwner(myPlayer.myRace);
+              p.myShipsT1 = (int)remaining;
+          }
+          for(int i = 0; i < s; i++)
+          {
               myShips.remove(i);
           }
-          action = false;
        }
 
        else {
@@ -150,7 +152,6 @@ public class Planet
        for(int i = 0; i < myShips.size(); i++ )
        {
            myShips.get(i).drawCirclePath(arg, g);
-           g.drawOval(myShips.get(i).myX, myShips.get(i).myY, 10, 10);
        }
        else {
            addShips(arg);
@@ -167,8 +168,7 @@ public class Planet
       return dob;
    
    }
-<<<<<<< HEAD
-=======
+
 
    public void update(double x, BufferedImage im, Graphics2D g, JPanel panel) //updates the ship movement
    {
@@ -177,16 +177,16 @@ public class Planet
      rot.rotate(Math.toRadians(45), dob[0], dob[1]);
      g.drawImage(im, rot, panel);  
    }
->>>>>>> 0c9f860365daadcfb2c52162d61c819f140871be
+
    
    //calculates the strength of the planet based on ships it has and other benefits
    public double calcStrength(Planet arg, player p) //calculates the strength of the planet based on ships it has and other benefits
    {
-      return arg.getShips(1) + arg.getShips(2) + arg.getShips(3) + (arg.getTier() / 2) + p.getBenefits("atk");
+      return ((arg.getShips(1) + arg.getShips(2) + arg.getShips(3)) * p.myTier) + (arg.getTier() / 2) + p.getBenefits("atk");
    }
    public double calcStrength(player p)
    {
-      return myShipsT1 + myShipsT2 + myShipsT3 + (myTier / 2) + p.getBenefits("atk");
+      return ((myShipsT1 + myShipsT2 + myShipsT3) * myPlayer.myTier) + (myTier / 2) + p.getBenefits("atk");
    }
    
    public void console(String s, Planet[] p, JPanel panel, player p1, Graphics2D g)

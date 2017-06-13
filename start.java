@@ -91,14 +91,11 @@ public class start extends JPanel {
             tabbedPane6.add("Races",jTextArea1);
             tabbedPane6.add("Basics",jTextArea3);
 
-<<<<<<< HEAD
+
 
             root = column(tabbedPane6);
-=======
-            root = column(none, none,  tabbedPane6);
->>>>>>> 0c9f860365daadcfb2c52162d61c819f140871be
 
-            setConstraints();
+
         }
         //dummy actions for jtextfields because we dont need the listeners
         public void jTextField1TextEntered(ActionEvent e)
@@ -113,14 +110,8 @@ public class start extends JPanel {
         public void jButton4Clicked(ActionEvent e)
         {
             //gives player a random number of planets that is not even
-            int a = (int)(Math.random() * 12 + 1); 
-            int b = (int)(Math.random() * 12 + 1);
-            while(b == a)
-            {
-                b = (int)(Math.random() * 12 + 1);
-            }
-            player p1 = new player(a , getRaceChoice(jTextField2));
-            player p2 = new player(b , getRaceChoice(jTextField1));
+            player p1 = new player(1 , getRaceChoice(jTextField2));
+            player p2 = new player(9 , getRaceChoice(jTextField1));
             
             Game ex = new Game(p1,p2); //instatiates game
             new Thread(ex).start();
@@ -191,11 +182,11 @@ public class start extends JPanel {
         public class Listener implements ActionListener {
 
             public void actionPerformed(ActionEvent e) {
-                int a = (int)(Math.random() * 12 + 1);
-                int b = (int)(Math.random() * 12 + 1);
+                int a = (int)(Math.random() * 8 + 1);
+                int b = (int)(Math.random() * 8 + 1);
                 while(b == a)
                 {
-                    b = (int)(Math.random() * 12 + 1);
+                    b = (int)(Math.random() * 8 + 1);
                 }
                 player p1 = new player(a , getRaceChoice(jTextField2));
                 player p2 = new player(b , getRaceChoice(jTextField1));

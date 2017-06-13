@@ -126,7 +126,7 @@ public class Game implements Runnable{
           }
       });
       southPanel.add(endTurn,BorderLayout.EAST);
-      southPanel.add(plylabel = new JLabel("Iron: " + currentPlayer().getIron(arr) + "\n  Used Iron: " + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier), BorderLayout.WEST);
+      southPanel.add(plylabel = new JLabel("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier), BorderLayout.WEST);
       panel.add(southPanel, BorderLayout.SOUTH);
 
       canvas.addMouseListener(new MouseControl()); //listener that checks for mouse actions within canvas borders
@@ -168,7 +168,7 @@ public class Game implements Runnable{
             A.myTurn = false;
             p1.myTurn = true;
         }
-        plylabel.setText(("Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
+        plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
 
     }
 
@@ -254,6 +254,15 @@ public class Game implements Runnable{
          }
       }
    }
+
+
+   private double x = 0;
+   protected void update(int deltaTime){
+            x += deltaTime * 0.2;
+            while(x > 500){
+                  x -= 500;
+               }
+         }
    
    private void render() { //renders the stuff in the game window
       g = (Graphics2D) bufferStrategy.getDrawGraphics();
@@ -262,7 +271,10 @@ public class Game implements Runnable{
       g.dispose();
       bufferStrategy.show();
    }
-<<<<<<< HEAD
+
+
+
+
    
    /**
     * Rewrite this method for your game
@@ -295,9 +307,4 @@ public class Game implements Runnable{
       Game ex = new Game(p1,p2);
 
    }
-   
-
-
-=======
->>>>>>> 0c9f860365daadcfb2c52162d61c819f140871be
 }
