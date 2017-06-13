@@ -259,7 +259,6 @@ public class Game implements Runnable{
       render(g, arr);
       g.dispose();
       bufferStrategy.show();
-      
    }
    
    //TESTING
