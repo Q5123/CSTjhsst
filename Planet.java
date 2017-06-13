@@ -66,13 +66,13 @@ public class Planet
       myPlayer = p;
       Race = p.myRace;
    }
-
    public boolean isMyPlayer(player p) //checks if there player that controls the planet matches
    {
       if(p.myRace.equals(myPlayer.myRace))
          return true;
       return false;
    } 
+   
    //Accessor methods
    public double getRadius()
    {
@@ -81,7 +81,6 @@ public class Planet
    public int getX(){
       return myX;
    }
-   
    public int getY(){
       return myY;
    }
@@ -110,6 +109,7 @@ public class Planet
    public double getCircumference() {
       return circumference;
    }
+   
    public void attack(Planet p, int s, Graphics2D g)//sends ships to another planet and if the amount of shops sent exceeds the planet defense, changes control of the planet attacked
    {
        if(s + myPlayer.getBenefits("atk") > p.myStrength)
@@ -162,6 +162,7 @@ public class Planet
      g.drawImage(im, rot, panel);  
    }
    
+   //calculates the strength of the planet based on ships it has and other benefits
    public double calcStrength(Planet arg, player p) //calculates the strength of the planet based on ships it has and other benefits
    {
       return arg.getShips(1) + arg.getShips(2) + arg.getShips(3) + (arg.getTier() / 2) + p.getBenefits("atk");
