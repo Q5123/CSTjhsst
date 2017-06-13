@@ -20,6 +20,7 @@ import java.awt.RenderingHints;
 import java.awt.Image; //Imports
 public class Ships
 {
+   //fields
    public int myX;
    public int myY; //location
    public String Owner; 
@@ -41,22 +42,24 @@ public class Ships
    public boolean reached; //did i reach the destination?
    Planet myPlanet; //My current planet
    
+   //modifier methods
    public void setX(int mx) //Sets x-coord
    {
       myX = mx;
    }
-   
    public void setY(int my) //Sets y-coord
    {
       myY = my;
    }
-   public Planet getPlanet()
-   {
-      return myPlanet;
-   }
    public void setScale(int s) //sets the scale for theship
    {
       myScale = s;
+   }
+   
+   //accessor methods
+   public Planet getPlanet()
+   {
+      return myPlanet;
    }
    public double getScale() //Gets scale for the ship
    {
@@ -69,12 +72,12 @@ public class Ships
       }
       catch(Exception e){}
    }
-   
    public String getImagePath(String s) //Gets the image path for the ship
    {
       return "GShips/" + s + ".png";
    }
 
+   //constructors
    public Ships(int mx, int my, int d, String o)
    {
       myX = mx;
@@ -105,7 +108,7 @@ public class Ships
       //setImagePath(i);
       Orbiting = false;
       atk = false;
-      switch(pl.myRace) {
+      switch(pl.myRace) { //depending on the race and tier of ship you choose to build, it will display the proper image by going through the switch statements
          case "Cyberman":
             switch (pl.myTier) {
                case 0:
@@ -116,15 +119,12 @@ public class Ships
                   setImagePath("2");
                   Strength = 2;
                   break;
-
                case 3:
                   setImagePath("3");
                   Strength = 3;
                   break;
-
             }
             break;//Sets fields to arguments
-
          case "Dalek":
             switch (pl.myTier) {
                case 0:
@@ -140,7 +140,6 @@ public class Ships
                   setImagePath("3B");
                   Strength = 3;
                   break;
-
             }
             break;
          case "Human":
@@ -153,12 +152,10 @@ public class Ships
                   setImagePath("5");
                   Strength = 2;
                   break;
-
                case 3:
                   setImagePath("6");
                   Strength = 3;
                   break;
-
             }
             break;
          case "Jawa":
@@ -171,23 +168,19 @@ public class Ships
                   setImagePath("5B");
                   Strength = 2;
                   break;
-
                case 3:
                   setImagePath("6B");
                   Strength = 3;
                   break;
-
             }
             break;
-
          default:
             setImagePath("1");
             Strength = 1;
             break;
       }
-
-
    }
+   
    public void newOrbit(Planet arg) //Initializes a new orbit.
    {
       if(Orbiting == true){}
