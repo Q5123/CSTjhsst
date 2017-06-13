@@ -159,16 +159,28 @@ public class Game implements Runnable{
         {
             p1.myTurn = false;
             p2.myTurn = true;
+           plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
+           for(int i = 0; i < arr.length; i++) {
+              arr[i].action = true;
+           }
         }
         else if(p2.myTurn){
             p2.myTurn= false;
             A.myTurn = true;
+           for(int i = 0; i < arr.length; i++) {
+              arr[i].action = true;
+           }
+           plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
         }
         else if(A.myTurn) {
             A.myTurn = false;
             p1.myTurn = true;
+           for(int i = 0; i < arr.length; i++) {
+              arr[i].action = true;
+           }
+           plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
         }
-        plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
+
 
     }
 
@@ -286,6 +298,12 @@ public class Game implements Runnable{
             displayPlanets(i,g);
          }
          catch(Exception e){System.out.println("Could not Display " + arr[i].getImagePath());}
+      }
+
+      if(A.myTurn)
+      {
+         A.makeMove(arr);
+         switchTurn();
       }
       for(int i = 0; i < arr.length; i++)
       {

@@ -122,7 +122,7 @@ public class Planet
           double remaining = s + myPlayer.getBenefits("atk") - p.myStrength;
           if(remaining > 0)
           {
-              p.switchOwner(myPlayer.myRace);
+              p.switchOwner(myPlayer);
               p.myShipsT1 = (int)remaining;
           }
           for(int i = 0; i < s; i++)
@@ -193,166 +193,123 @@ public class Planet
    {
       try {
          String j = s.substring(0, s.indexOf("."));
-         if(j.equals("setIron"))
-            Iron = Integer.parseInt(s.substring(s.indexOf(".") + 1));
-         
+         if(j.equals("setIron")) {
+             Iron = Integer.parseInt(s.substring(s.indexOf(".") + 1));
+         }
          else if(j.equals("setShipsT1")) {
             myShipsT1 = Integer.parseInt(s.substring(s.indexOf(".") + 1));
             myStrength = calcStrength(myPlayer);
          }
       }
       catch(StringIndexOutOfBoundsException e){}
-      if(action = true)
-      if(s.equals("atk"))
-      {
-         String attacked = JOptionPane.showInputDialog(panel, "who are you attacking?");
-         int ArrOfAttacked = -1;
-         for(int i = 0; i < p.length; i++)
-         {
-            if(attacked.equals(p[i].name))
-            {
-               ArrOfAttacked = i;
-            }
-         }
-         if(ArrOfAttacked == -1)
-         {
-             console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1, g);
-         }
-         else
-         {
+      if(action){
+          if (s.equals("atk")) {
+              String attacked = JOptionPane.showInputDialog(panel, "who are you attacking?");
+              int ArrOfAttacked = -1;
+              for (int i = 0; i < p.length; i++) {
+                  if (attacked.equals(p[i].name)) {
+                      ArrOfAttacked = i;
+                  }
+              }
+              if (ArrOfAttacked == -1) {
+                  console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1, g);
+              } else {
 
-            int ArrOfAttacker = -1;
-            
-            for(int i = 0; i < p.length; i++)
-            {
-               if(this.name.equals(p[i].name))
-               {
-                  ArrOfAttacker = i;
-               }
-            }
-            if(ArrOfAttacker == -1)
-            {
-                console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1, g);
-            }
-            
-            else
-            {
-               int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
-               
-               attack(p[ArrOfAttacked], amount, g);
-                
-            }
-            
-         
-         }
-      }
-else if(s.equals("terraform"))
-{
-    switch(myPlayer.myRace)
-    {
-        case "Human":
-            setImage("16");
-            Iron += myPlayer.myTier * 5;
-            break;
-        case "Cybermen":
-            setImage("17");
-            Iron += myPlayer.myTier * 5;
-            break;
-        case "Dalek":
-            setImage("12");
-            Iron += myPlayer.myTier * 5;
-            break;
-        case "Jawa":
-            setImage("16");
-            Iron += myPlayer.myTier * 5;
-            break;
-        default:
-            break;
+                  int ArrOfAttacker = -1;
 
-    }
+                  for (int i = 0; i < p.length; i++) {
+                      if (this.name.equals(p[i].name)) {
+                          ArrOfAttacker = i;
+                      }
+                  }
+                  if (ArrOfAttacker == -1) {
+                      console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1, g);
+                  } else {
+                      int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
 
-    action = false;
+                      attack(p[ArrOfAttacked], amount, g);
+
+                  }
 
 
-
-
-
-
-}
-      else if(s.equals("research"))
-      {
-          if(myPlayer.isMe(p1))
-          {
-              int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
-              myPlayer.addResearch(amount);
-              if(amount <= Iron - IronUsed) {
-                  IronUsed += amount;
-                  action = false;
+              }
+          } else if (s.equals("terraform")) {
+              switch (myPlayer.myRace) {
+                  case "Human":
+                      setImage("16");
+                      Iron += myPlayer.myTier * 5;
+                      break;
+                  case "Cybermen":
+                      setImage("05");
+                      Iron += myPlayer.myTier * 5;
+                      break;
+                  case "Dalek":
+                      setImage("12");
+                      Iron += myPlayer.myTier * 5;
+                      break;
+                  case "Jawa":
+                      setImage("16");
+                      Iron += myPlayer.myTier * 5;
+                      break;
+                  default:
+                      break;
 
               }
 
+              action = false;
 
-              else{
-                  console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
+
+          } else if (s.equals("research")) {
+              if (myPlayer.isMe(p1)) {
+                  int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
+                  myPlayer.addResearch(amount);
+                  if (amount <= Iron - IronUsed) {
+                      IronUsed += amount;
+                      action = false;
+
+                  } else {
+                      console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
+                  }
               }
-          }
 
 
+          } else if (s.equals("build")) {
+              if (myPlayer.isMe(p1)) {
+                  int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
+                  if (myPlayer.myTier == 1) {
+                      if (amount <= Iron - IronUsed && myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
+                          IronUsed += amount;
+                          myShipsT1 += amount;
+                          action = false;
+                      } else {
+                          console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
+                      }
+
+
+                  } else if (myPlayer.myTier == 2) {
+                      if (amount <= Iron - (IronUsed * 2) && myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
+                          IronUsed += amount;
+                          myShipsT2 += amount;
+                          action = false;
+                      } else {
+                          console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
+                      }
+                  } else {
+                      if (amount <= Iron - (IronUsed * 3) && myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
+                          IronUsed += amount;
+                          myShipsT3 += amount;
+                          action = false;
+                      } else {
+                          console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
+                      }
+                  }
+              } else {
+                  console(JOptionPane.showInputDialog(panel, "This isn't your planet"), p, panel, p1, g);
+              }
+
+          } else
+              JOptionPane.showMessageDialog(panel, "Sorry, that's not a command", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
       }
-
-      else if(s.equals("build"))
-      {
-         if(myPlayer.isMe(p1)) {
-            int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
-            if(myPlayer.myTier == 1) {
-                if(amount <= Iron - IronUsed && myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
-                    IronUsed += amount;
-                    myShipsT1 += amount;
-                    action = false;
-                }
-
-                else{
-                    console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
-                }
-
-
-            }
-
-            else if(myPlayer.myTier == 2)
-            {
-                if(amount <= Iron - (IronUsed * 2) && myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
-                    IronUsed += amount;
-                    myShipsT2 += amount;
-                    action = false;
-                }
-
-                else{
-                    console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
-                }
-            }
-
-            else
-            {
-                if(amount <= Iron - (IronUsed * 3)&& myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
-                    IronUsed += amount;
-                    myShipsT3 += amount;
-                    action = false;
-                }
-
-                else{
-                    console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
-                }
-            }
-         }
-
-         else{
-             console(JOptionPane.showInputDialog(panel, "This isn't your planet"), p, panel, p1, g);
-         }
-
-      }
-      
-      else
-         JOptionPane.showMessageDialog(panel ,"Sorry, that's not a command" , "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
 
 
       else{
@@ -430,9 +387,10 @@ else if(s.equals("terraform"))
       System.out.println("Clicked " + name);
       console(JOptionPane.showInputDialog(null, getInfo()), arg, p, p1, g);
    }
-   public void switchOwner(String s)
+   public void switchOwner(player s)
    {
-       Race = s;
+       myPlayer = s;
+       Race = myPlayer.myRace;
    }
    public String getInfo()
    {

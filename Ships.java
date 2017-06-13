@@ -112,15 +112,15 @@ public class Ships
          case "Cyberman":
             switch (pl.myTier) {
                case 0:
-                  setImagePath("1");
+                  setImagePath("4B");
                   Strength = 1;
                   break;
                case 1:
-                  setImagePath("2");
+                  setImagePath("6B");
                   Strength = 2;
                   break;
                case 3:
-                  setImagePath("3");
+                  setImagePath("10B");
                   Strength = 3;
                   break;
             }
@@ -128,16 +128,16 @@ public class Ships
          case "Dalek":
             switch (pl.myTier) {
                case 0:
-                  setImagePath("1B");
+                  setImagePath("1");
                   Strength = 1;
                   break;
                case 1:
-                  setImagePath("2B");
+                  setImagePath("2");
                   Strength = 2;
                   break;
 
                case 3:
-                  setImagePath("3B");
+                  setImagePath("3");
                   Strength = 3;
                   break;
             }
@@ -145,15 +145,15 @@ public class Ships
          case "Human":
             switch (pl.myTier) {
                case 0:
-                  setImagePath("4");
+                  setImagePath("6");
                   Strength = 1;
                   break;
                case 1:
-                  setImagePath("5");
+                  setImagePath("11");
                   Strength = 2;
                   break;
                case 3:
-                  setImagePath("6");
+                  setImagePath("13");
                   Strength = 3;
                   break;
             }

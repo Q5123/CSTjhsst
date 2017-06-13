@@ -8,6 +8,7 @@ public class AIplayer extends player{
     {
         super(4, p.length);
     }
+    public int turns = 0;
 
     public int getBenefits(String s)
     {
@@ -15,11 +16,16 @@ public class AIplayer extends player{
     }
     public void makeMove(Planet[] myPlanets)
     {
-        for(int i = 0; i < myPlanets.length; i++)
-        {
-            myPlanets[i].AiConsole("build", myPlanets[i].Iron/2, myTier);
-            myPlanets[i].AiConsole("research", myPlanets[i].Iron/2 -1, 0);
 
+            for (int i = 0; i < myPlanets.length; i++) {
+                turns++;
+
+                if (myPlanets[i].myPlayer.isMe(this)) {
+                    myPlanets[i].AiConsole("build", turns, myTier);
+                    myPlanets[i].AiConsole("research", turns, 0);
+
+                }
+
+            }
         }
     }
-}
