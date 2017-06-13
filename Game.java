@@ -151,7 +151,6 @@ public class Game implements Runnable{
       public void actionPerformed(ActionEvent e)
       {
            	
-            
       }
    }
     public void switchTurn() //switches turns between players
@@ -222,7 +221,7 @@ public class Game implements Runnable{
     
    boolean running = true;
    
-   public void run(){
+   public void run(){ //Runs the game and shows image movement
       
       long beginLoopTime;
       long endLoopTime;
@@ -230,10 +229,10 @@ public class Game implements Runnable{
       long lastUpdateTime;
       long deltaLoop;
       
-      while(running){
+      while(running){ //while it is running, make sure it is running correctly and at the right pace
          beginLoopTime = System.nanoTime();
          
-         render();
+         render(); 
          
          lastUpdateTime = currentUpdateTime;
          currentUpdateTime = System.nanoTime();
@@ -243,7 +242,7 @@ public class Game implements Runnable{
          deltaLoop = endLoopTime - beginLoopTime;
            
          if(deltaLoop > desiredDeltaLoop){
-               //Do nothing. We are already late.
+               //Do nothing
          }
          else{
             try{
@@ -256,27 +255,14 @@ public class Game implements Runnable{
       }
    }
    
-   private void render() {
+   private void render() { //renders the stuff in the game window
       g = (Graphics2D) bufferStrategy.getDrawGraphics();
       imgb.paintIcon(panel,g,0,0);
       render(g, arr);
       g.dispose();
       bufferStrategy.show();
-      
    }
-   
-   //TESTING
-   private double x = 0;
-   
-   /**
-    * Rewrite this method for your game
-    */
-   protected void update(int deltaTime){
-      x += deltaTime * 0.2;
-      while(x > 500){
-         x -= 500;
-      }
-   }
+<<<<<<< HEAD
    
    /**
     * Rewrite this method for your game
@@ -312,4 +298,6 @@ public class Game implements Runnable{
    
 
 
+=======
+>>>>>>> 0c9f860365daadcfb2c52162d61c819f140871be
 }
