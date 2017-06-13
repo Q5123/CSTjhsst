@@ -151,7 +151,6 @@ public class Planet
       dob[0] = x;
       dob[1] = y;
       return dob;
-   
    }
 
    public void update(double x, BufferedImage im, Graphics2D g, JPanel panel) //updates the ship movement
@@ -172,21 +171,19 @@ public class Planet
       return myShipsT1 + myShipsT2 + myShipsT3 + (myTier / 2) + p.getBenefits("atk");
    }
    
-   public void console(String s, Planet[] p, JPanel panel, player p1, Graphics2D g)
+   public void console(String s, Planet[] p, JPanel panel, player p1, Graphics2D g) //allows building, attacking, and researching
    {
       try {
          String j = s.substring(0, s.indexOf("."));
          if(j.equals("setIron"))
             Iron = Integer.parseInt(s.substring(s.indexOf(".") + 1));
-         
          else if(j.equals("setShipsT1")) {
             myShipsT1 = Integer.parseInt(s.substring(s.indexOf(".") + 1));
             myStrength = calcStrength(myPlayer);
          }
       }
       catch(StringIndexOutOfBoundsException e){}
-         
-         
+          
       if(s.equals("atk"))
       {
          String attacked = JOptionPane.showInputDialog(panel, "who are you attacking?");
@@ -315,20 +312,11 @@ public class Planet
       case 3:
       myShipsT3 += x;
       break;
-      
-      
-      
       }
       break;
-      
       default:
       break;
-      
-      
       }
-   
-   
-   
    }
    
    public void store(int a, int b, int c)
@@ -337,24 +325,19 @@ public class Planet
       stored[0] = a;
       stored[1] = b;
       stored[2] = c;
-   }
-      
+   }  
    public int[] getStored()
    {
       return stored;
    }
-   
-   
    public String getImagePath()
    {
       return ("planets/planet_" + img + ".png");
    }
-   
    public void setImage(String i)
    {
       img = i;
    }
-   
    public boolean liesInPlanet(int x, int y)
    {
       double dx = x - myX;
@@ -362,7 +345,6 @@ public class Planet
       double r = Radius;
       return dx * dx + dy * dy <= r * r;
    } 
-   
    public void displayInfo(Planet[] arg, JPanel p, player p1, Graphics2D g)
    {
       System.out.println("Clicked " + name);
