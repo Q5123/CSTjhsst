@@ -219,7 +219,6 @@ public class Planet
       dob[0] = x;
       dob[1] = y;
       return dob;
-   
    }
 
 
@@ -239,6 +238,7 @@ public class Planet
    {
       return ((arg.getShips(1) + arg.getShips(2) + arg.getShips(3)) * p.myTier) + (arg.getTier() / 2) + p.getBenefits("atk");
    }
+<<<<<<< HEAD
 
     /**
      * Description Controls attacking, building, researching, and terraforming
@@ -259,12 +259,26 @@ public class Planet
          if(j.equals("setIron")) {
              Iron = Integer.parseInt(s.substring(s.indexOf(".") + 1));
          }
+=======
+   public double calcStrength(player p)
+   {
+      return myShipsT1 + myShipsT2 + myShipsT3 + (myTier / 2) + p.getBenefits("atk");
+   }
+   
+   public void console(String s, Planet[] p, JPanel panel, player p1, Graphics2D g) //allows building, attacking, and researching
+   {
+      try {
+         String j = s.substring(0, s.indexOf("."));
+         if(j.equals("setIron"))
+            Iron = Integer.parseInt(s.substring(s.indexOf(".") + 1));
+>>>>>>> 279a0e9ca49ccc394f121326ad2677fd7bd28cec
          else if(j.equals("setShipsT1")) {
             myShipsT1 = Integer.parseInt(s.substring(s.indexOf(".") + 1));
             myStrength = calcStrength(this, myPlayer);
          }
       }
       catch(StringIndexOutOfBoundsException e){}
+<<<<<<< HEAD
       if(action){
           if (s.equals("atk")) {
               String attacked = JOptionPane.showInputDialog(panel, "who are you attacking?");
@@ -288,6 +302,52 @@ public class Planet
                   if (ArrOfAttacker == -1) {
                       console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1);
                   } else {
+=======
+          
+      if(s.equals("atk"))
+      {
+         String attacked = JOptionPane.showInputDialog(panel, "who are you attacking?");
+         int ArrOfAttacked = -1;
+         for(int i = 0; i < p.length; i++)
+         {
+            if(attacked.equals(p[i].name))
+            {
+               ArrOfAttacked = i;
+            }
+         }
+         if(ArrOfAttacked == -1)
+         {
+            System.out.println("thats not a planet");
+         }
+         else
+         {
+            String attacker = JOptionPane.showInputDialog(panel, "from which planet");
+            int ArrOfAttacker = -1;
+            
+            for(int i = 0; i < p.length; i++)
+            {
+               if(attacker.equals(p[i].name))
+               {
+                  ArrOfAttacker = i;
+               }
+            }
+            if(ArrOfAttacker == -1)
+            {
+               System.out.println("thats not a planet");
+            }
+            
+            else
+            {
+               int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
+               
+               attack(p[ArrOfAttacked], amount, g);
+                
+            }
+            
+         
+         }
+      }
+>>>>>>> 279a0e9ca49ccc394f121326ad2677fd7bd28cec
 
 
                       double x = Math.sqrt(Math.pow((myX - p[ArrOfAttacked].myX), 2) + Math.pow((myY - p[ArrOfAttacked].myY), 2));
@@ -412,23 +472,19 @@ public class Planet
       case 3:
       myShipsT3 += x;
       break;
-      
-      
-      
       }
       break;
+<<<<<<< HEAD
 
           case "research": myPlayer.addResearch(x);
       
+=======
+>>>>>>> 279a0e9ca49ccc394f121326ad2677fd7bd28cec
       default:
       break;
-      
-      
       }
-   
-   
-   
    }
+<<<<<<< HEAD
 
    
    
@@ -443,15 +499,43 @@ public class Planet
    }
    
    public boolean liesInPlanet(int x, int y) //checks if point lies within planet
+=======
+   
+   public void store(int a, int b, int c)
+   {
+      stored = new int[3];
+      stored[0] = a;
+      stored[1] = b;
+      stored[2] = c;
+   }  
+   public int[] getStored()
+   {
+      return stored;
+   }
+   public String getImagePath()
+   {
+      return ("planets/planet_" + img + ".png");
+   }
+   public void setImage(String i)
+   {
+      img = i;
+   }
+   public boolean liesInPlanet(int x, int y)
+>>>>>>> 279a0e9ca49ccc394f121326ad2677fd7bd28cec
    {
       double dx = x - myX;
       double dy = y - myY;
       double r = Radius;
       return dx * dx + dy * dy <= r * r;
+<<<<<<< HEAD
    }
 
 
    public void displayInfo(Planet[] arg, JPanel p, player p1, Graphics2D g)//displays info
+=======
+   } 
+   public void displayInfo(Planet[] arg, JPanel p, player p1, Graphics2D g)
+>>>>>>> 279a0e9ca49ccc394f121326ad2677fd7bd28cec
    {
       System.out.println("Clicked " + name);
       console(JOptionPane.showInputDialog(null, getInfo()), arg, p, p1);
