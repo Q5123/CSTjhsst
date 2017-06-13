@@ -240,7 +240,7 @@ public class Game implements Runnable{
          deltaLoop = endLoopTime - beginLoopTime;
            
          if(deltaLoop > desiredDeltaLoop){
-               //Do nothing. We are already late.
+               //Do nothing
          }
          else{
             try{
