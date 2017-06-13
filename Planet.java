@@ -47,7 +47,20 @@ public class Planet
    public int IronUsed;
 
    public boolean action;
-
+    /**
+     * Description...
+     *
+     * @param x planet position on canvas
+     * @param y planet position on canvas
+     * @param t planet tier
+     *          @param mS = strength
+     *                    @param i img string
+     *                             @param s Race
+     *                                      @param iro Iron
+     *                                                 @param n name
+     *                                                          @param p player owning the planet
+     *                                                                   @param pan the panel the planet will be on
+     */
 
    public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p, JPanel pan) //constructor
 
@@ -65,12 +78,28 @@ public class Planet
       myShips = new ArrayList<Ships>(); //ships the planet has
       myPanel = pan;
    }
-
+/**
+ * Description Switches planets presiding player
+ *
+ * @param p or player to switch to
+ *
+ *
+ *
+ */
    public void switchPlayer(player p) //switches which player controls the planet
    {
       myPlayer = p;
       Race = p.myRace;
    }
+
+    /**
+     * Description Checks if player is this planets player
+     *
+     * @param p Checks against this player
+     *
+     *
+     *
+     */
    public boolean isMyPlayer(player p) //checks if there player that controls the planet matches
    {
       if(p.myRace.equals(myPlayer.myRace))
@@ -114,8 +143,15 @@ public class Planet
    public double getCircumference() {
       return circumference;
    }
-   
-   public void attack(Planet p, int s, Graphics2D g)//sends ships to another planet and if the amount of shops sent exceeds the planet defense, changes control of the planet attacked
+    /**
+     * Description allows this planet to attack other planet
+     *
+     * @param p planet to attack
+     * @param s amount of ships sent to that planet
+     *
+     *
+     */
+   public void attack(Planet p, int s)//sends ships to another planet and if the amount of shops sent exceeds the planet defense, changes control of the planet attacked
    {
        if(s + myPlayer.getBenefits("atk") > p.calcStrength(p, p.myPlayer))
        {
@@ -140,12 +176,29 @@ public class Planet
           action = false;
        }
    }
-
+    /**
+     * Description adds Ships to planets
+     *
+     * @param arg planet to addships to
+     *
+     *
+     *
+     */
    public void addShips(Planet arg) //Increases the number of ships on the planet
    {
        myShips.add(new Ships(0,0,10, 127, Race, myPanel, myPlayer));
        myShips.get(myShips.size() - 1).newOrbit(arg);
    }
+
+    /**
+     * Description Displays Ships
+     *
+     * @param g Graphcis needed to draw the ship
+     * @param arg Planet that the ships will orbit around
+     *
+     *
+     *
+     */
    public void displayShips(Graphics2D g, Planet arg) //displays the ships around the planet
    {
        if(myShips.size() == myShipsT1 + myShipsT3 + myShipsT2)
@@ -170,26 +223,36 @@ public class Planet
    }
 
 
-   public void update(double x, BufferedImage im, Graphics2D g, JPanel panel) //updates the ship movement
-   {
-     AffineTransform rot = new AffineTransform();
-     double dob[] = getCenter();
-     rot.rotate(Math.toRadians(45), dob[0], dob[1]);
-     g.drawImage(im, rot, panel);  
-   }
 
    
    //calculates the strength of the planet based on ships it has and other benefits
-   public double calcStrength(Planet arg, player p) //calculates the strength of the planet based on ships it has and other benefits
+    /**
+     * Description Calculates strength of planet
+     *
+     * @param arg the planet
+     * @param p the player that is controling the planet
+     *
+     *
+     *
+     */
+    public double calcStrength(Planet arg, player p) //calculates the strength of the planet based on ships it has and other benefits
    {
       return ((arg.getShips(1) + arg.getShips(2) + arg.getShips(3)) * p.myTier) + (arg.getTier() / 2) + p.getBenefits("atk");
    }
-   public double calcStrength(player p)
-   {
-      return ((myShipsT1 + myShipsT2 + myShipsT3) * myPlayer.myTier) + (myTier / 2) + p.getBenefits("atk");
-   }
-   
-   public void console(String s, Planet[] p, JPanel panel, player p1, Graphics2D g)
+
+    /**
+     * Description Controls attacking, building, researching, and terraforming
+     *
+     * @param p the array of planets
+     *          @param s the command string
+     *                   @param panel the panel where everything is being drawn
+     *                                @param p1 the player who is doing the actions
+     *
+     *
+     *
+     *
+     */
+   public void console(String s, Planet[] p, JPanel panel, player p1)//Is needed to start attacking, building, researching, and terraforming. Each console action takes 1 Iron.
    {
       try {
          String j = s.substring(0, s.indexOf("."));
@@ -198,7 +261,7 @@ public class Planet
          }
          else if(j.equals("setShipsT1")) {
             myShipsT1 = Integer.parseInt(s.substring(s.indexOf(".") + 1));
-            myStrength = calcStrength(myPlayer);
+            myStrength = calcStrength(this, myPlayer);
          }
       }
       catch(StringIndexOutOfBoundsException e){}
@@ -212,7 +275,7 @@ public class Planet
                   }
               }
               if (ArrOfAttacked == -1) {
-                  console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1, g);
+                  console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1);
               } else {
 
                   int ArrOfAttacker = -1;
@@ -223,15 +286,23 @@ public class Planet
                       }
                   }
                   if (ArrOfAttacker == -1) {
-                      console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1, g);
+                      console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1);
                   } else {
-                      int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
 
-                      attack(p[ArrOfAttacked], amount, g);
+
+                      double x = Math.sqrt(Math.pow((myX - p[ArrOfAttacked].myX), 2) + Math.pow((myY - p[ArrOfAttacked].myY), 2));
+                      if (x > 100) {
+                          int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
+
+                          attack(p[ArrOfAttacked], amount);
+
+                      }
+                      else{
+                          console(JOptionPane.showInputDialog(panel, "To far away"), p, panel, p1);
+                      }
+
 
                   }
-
-
               }
           } else if (s.equals("terraform")) {
               switch (myPlayer.myRace) {
@@ -268,7 +339,7 @@ public class Planet
                       action = false;
 
                   } else {
-                      console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
+                      console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1);
                   }
               }
 
@@ -282,7 +353,7 @@ public class Planet
                           myShipsT1 += amount;
                           action = false;
                       } else {
-                          console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
+                          console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1);
                       }
 
 
@@ -292,7 +363,7 @@ public class Planet
                           myShipsT2 += amount;
                           action = false;
                       } else {
-                          console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
+                          console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1);
                       }
                   } else {
                       if (amount <= Iron - (IronUsed * 3) && myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
@@ -300,11 +371,11 @@ public class Planet
                           myShipsT3 += amount;
                           action = false;
                       } else {
-                          console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
+                          console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1);
                       }
                   }
               } else {
-                  console(JOptionPane.showInputDialog(panel, "This isn't your planet"), p, panel, p1, g);
+                  console(JOptionPane.showInputDialog(panel, "This isn't your planet"), p, panel, p1);
               }
 
           } else
@@ -317,8 +388,17 @@ public class Planet
       }
       
    }
-   
-   public void AiConsole(String s, int x, int t)
+    /**
+     * Description Allows Ai to participate in building and researching
+     *
+     * @param s what the Ai needs to do
+     *          @param x the amount of Iron the AI is using
+     *                   @param t the Tier of ships if applicable
+     *
+     *
+     *
+     */
+   public void AiConsole(String s, int x, int t) //allows AI console to build and research
    {
       switch(s){
       case "build":
@@ -349,50 +429,39 @@ public class Planet
    
    
    }
-   
-   public void store(int a, int b, int c)
-   {
-      stored = new int[3];
-      stored[0] = a;
-      stored[1] = b;
-      stored[2] = c;
-   }
-      
-   public int[] getStored()
-   {
-      return stored;
-   }
+
    
    
-   public String getImagePath()
+   public String getImagePath() //gets Image path
    {
       return ("planets/planet_" + img + ".png");
    }
    
-   public void setImage(String i)
+   public void setImage(String i) //sets Image
    {
       img = i;
    }
    
-   public boolean liesInPlanet(int x, int y)
+   public boolean liesInPlanet(int x, int y) //checks if point lies within planet
    {
       double dx = x - myX;
       double dy = y - myY;
       double r = Radius;
       return dx * dx + dy * dy <= r * r;
-   } 
-   
-   public void displayInfo(Planet[] arg, JPanel p, player p1, Graphics2D g)
+   }
+
+
+   public void displayInfo(Planet[] arg, JPanel p, player p1, Graphics2D g)//displays info
    {
       System.out.println("Clicked " + name);
-      console(JOptionPane.showInputDialog(null, getInfo()), arg, p, p1, g);
+      console(JOptionPane.showInputDialog(null, getInfo()), arg, p, p1);
    }
-   public void switchOwner(player s)
+   public void switchOwner(player s)//switches ownership of planet
    {
        myPlayer = s;
        Race = myPlayer.myRace;
    }
-   public String getInfo()
+   public String getInfo()//gets the information
    {
        myStrength = calcStrength(this, myPlayer);
       String s ="Name: " + name + "\n" + "Owner: " + Race + "\n " + " Iron : " + Iron + "\n " + " Strength : " + myStrength + "\n Tier: " + myTier + "\n Iron Used: " + IronUsed;

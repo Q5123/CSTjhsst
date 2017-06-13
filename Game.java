@@ -103,7 +103,7 @@ public class Game implements Runnable{
 
             arr[i] = new Planet(x,y,t,0,img,"Jawa",Iron, r, name, A, panel); //instantiates planets
          }
-         //all planets start owned by ai, so this splits them evenly between all the players
+         //all planets start owned by ai, so this gives the real players their first planets
          arr[p1.firstPlanet].switchPlayer(p1);
          arr[p2.firstPlanet].switchPlayer(p2);
       }
@@ -119,14 +119,13 @@ public class Game implements Runnable{
       //adds button that switches turns
       JButton endTurn = new JButton("end Turn");
       endTurn.addActionListener(new ActionListener() {
-          @Override
           public void actionPerformed(ActionEvent e) {
               switchTurn();
               turnLabel.setText(currentPlayer().myRace);
           }
       });
       southPanel.add(endTurn,BorderLayout.EAST);
-      southPanel.add(plylabel = new JLabel("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier), BorderLayout.WEST);
+      southPanel.add(plylabel = new JLabel("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron: " + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier), BorderLayout.WEST);
       panel.add(southPanel, BorderLayout.SOUTH);
 
       canvas.addMouseListener(new MouseControl()); //listener that checks for mouse actions within canvas borders
@@ -153,13 +152,13 @@ public class Game implements Runnable{
            	
       }
    }
-    public void switchTurn() //switches turns between players
+    public void switchTurn() //switches turns between players and changes text on JLabel
     {
         if(p1.myTurn)
         {
             p1.myTurn = false;
             p2.myTurn = true;
-           plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
+           plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron: " + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
            for(int i = 0; i < arr.length; i++) {
               arr[i].action = true;
            }
@@ -170,7 +169,7 @@ public class Game implements Runnable{
            for(int i = 0; i < arr.length; i++) {
               arr[i].action = true;
            }
-           plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
+           plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron: " + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
         }
         else if(A.myTurn) {
             A.myTurn = false;
@@ -178,7 +177,7 @@ public class Game implements Runnable{
            for(int i = 0; i < arr.length; i++) {
               arr[i].action = true;
            }
-           plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
+           plylabel.setText(("Race: " + currentPlayer().myRace + "   Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron: " + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
         }
 
 
@@ -269,7 +268,8 @@ public class Game implements Runnable{
 
 
    private double x = 0;
-   protected void update(int deltaTime){
+   protected void update(int deltaTime)//udates x in relation to the amount of time that has passed
+   {
             x += deltaTime * 0.2;
             while(x > 500){
                   x -= 500;
@@ -288,10 +288,8 @@ public class Game implements Runnable{
 
 
    
-   /**
-    * Rewrite this method for your game
-    */
-   public void render(Graphics2D g, Planet[] arr){
+
+   public void render(Graphics2D g, Planet[] arr){//draws everything onscreen
       
       for(int i = 0; i < arr.length; i++) {
          try{
@@ -318,11 +316,5 @@ public class Game implements Runnable{
           arr[i].displayShips(g, arr[i]);
 
       }
-   }
-   public static void main(String [] args){
-      player p1 = new player(1, 1);
-      player p2 = new player(2, 2);
-      Game ex = new Game(p1,p2);
-
    }
 }

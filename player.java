@@ -30,6 +30,15 @@ public class player
    public int myResearch;
    public int myTier = 1;
    //constructors
+    /**
+     * Description player constructor
+     *
+     * @param x the reference fo the first planet the player has
+     *          @param r the race of the player
+     *
+     *
+     *
+     */
    public player(int x, int r)
    {
       planets = new ArrayList<Integer>();
@@ -45,10 +54,6 @@ public class player
           break;
       }
       firstPlanet = x;
-   }
-   public player()
-   {
-      myTurn = Boolean.parseBoolean(null);
    }
    
    //research higher tier ships

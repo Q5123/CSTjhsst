@@ -10,11 +10,24 @@ public class AIplayer extends player{
     }
     public int turns = 0;
 
-    public int getBenefits(String s)
+
+    /**
+     * Description...
+     *
+     * @param s = String
+     * @return always returns 0
+     */
+    public int getBenefits(String s)//Since Jawa has no benefits getbenefits is always 0
     {
         return 0;
     }
-    public void makeMove(Planet[] myPlanets)
+    /**
+     * Description Controls Aiplayers Ai
+     *
+     * @param myPlanets = array of planets
+     * @return void
+     */
+    public void makeMove(Planet[] myPlanets) //Adds one Iron to research and one Iron to building for each planet everyturn ensuring the games difficulty increases.
     {
 
             for (int i = 0; i < myPlanets.length; i++) {

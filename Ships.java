@@ -78,25 +78,11 @@ public class Ships
    }
 
    //constructors
-   public Ships(int mx, int my, int d, String o)
-   {
-      myX = mx;
-      myY = my;
-      myDistance = d;
-      Owner = o;   // sets fields to arguments
-   }
-   public Ships(int mx, int my, int s, int d, String o, JPanel p, String i)
-   {
-      myX = mx;
-      myY = my;
-      myDistance = d;
-      Owner = o;
-      mySpeed  = s;
-      myPanel = p;
-      setImagePath(i);
-      Orbiting = false;
-      atk = false; //sets fields to arguments
-   }
+   /**
+    * Description Constructor for Ship
+    *
+    * @param mx or x pos, my or y pos, s or speed, d or distance from planet, race or race, panel or Jpanel to display in, and p1 or player that owns the ship
+    */
    public Ships(int mx, int my, int s, int d, String race, JPanel p, player pl)
    {
       myX = mx;
@@ -180,7 +166,11 @@ public class Ships
             break;
       }
    }
-   
+   /**
+    * Description Creates new orbit around planet
+    *
+    * @param arg = planet that it is orbitting around
+    */
    public void newOrbit(Planet arg) //Initializes a new orbit.
    {
       if(Orbiting == true){}
@@ -193,6 +183,11 @@ public class Ships
          Orbiting = true;
       }
    }
+   /**
+    * Description Draws ship on orbit
+    *
+    * @param arg = Planet arg and g = Graphics2d
+    */
    public void drawCirclePath(Planet arg, Graphics2D g) //Draws the ship where it is.
    {
       /////////////////////////////////////////////////////////////////////////////////////Getting Information
@@ -220,65 +215,6 @@ public class Ships
       after = scaleOp.filter(img, after); //Transforms the image
       /////////////////////////////////////////////////////////////////////////////////////Draws Image                 
       g.drawImage(after, placeImg, null); //Draw things
-   }
-   public void Attack(Planet arg2, Graphics2D g) //Unused
-   {
-      int w = img.getWidth();
-      int h = img.getHeight();
-      if(!atk)
-      {
-         /////////////////////////////////////////////////////////////////////////////////////Gets Information 
-         slope = (myY - arg2.myY)/(myX - arg2.myX); //Finds slope needed
-         int planetX = arg2.myX; 
-         int planetY = arg2.myY; //Gets location of destination
-         b = (int)((slope * planetX) - planetY); //The b value in y = mx + b
-         atk = true; //I attack now.
-
-         /////////////////////////////////////////////////////////////////////////////////////Calculations
-         int yDiff = myY - planetY;
-         int xDiff = myX - planetX; //Calculates vert. and horiz. components between planet and ship
-         myAnglePos = Math.atan(yDiff / xDiff); //Calculates angle needed to rotate
-         /////////////////////////////////////////////////////////////////////////////////////Rotates Image
-         AffineTransform saveCurrent = g.getTransform(); //line not used
-         BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB); //new BufferedImage to store changes
-         AffineTransform rot = AffineTransform.getTranslateInstance(h, w);  //New AffineTransform
-         rot.rotate(Math.toRadians(-myAnglePos)); //Rotate
-         AffineTransform placeImg = new AffineTransform(); //New AffineTransform
-         placeImg.translate(myX * (1 - myScale), myY * (1 - myScale)); //Moves image
-         placeImg.concatenate(rot); //Combines placeImg and rot
-         AffineTransform at = new AffineTransform(); //makes the image resizeable
-         at.scale(0.2, 0.2); //sets the size
-         AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);//Creates AffineTransform needed to shrink image
-         after = scaleOp.filter(img, after); //Transforms the image
-         /////////////////////////////////////////////////////////////////////////////////////Draws Image                 
-         g.drawImage(after, placeImg, null); //Draw things
-      }
-      else if(!reached)
-      {
-         BufferedImage ship = img; //sets new BuffImg to img
-         g.drawImage(ship, myX, myY, null); //Draws image
-         myX+= mySpeed;
-         myY = (int)((slope * myX) + b); //Moves ship
-         /////////////////////////////////////////////////////////////////////////////////////Rotates Image
-         AffineTransform saveCurrent = g.getTransform(); //line not used
-         BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB); //new BufferedImage to store changes
-         AffineTransform rot = AffineTransform.getTranslateInstance(h, w);  //New AffineTransform
-         rot.rotate(Math.toRadians(-myAnglePos)); //Rotate
-         AffineTransform placeImg = new AffineTransform(); //New AffineTransform
-         placeImg.translate(myX * (1 - myScale), myY * (1 - myScale)); //Moves image
-         placeImg.concatenate(rot); //Combines placeImg and rot
-         AffineTransform at = new AffineTransform(); //makes the image resizeable
-         at.scale(0.2, 0.2); //sets the size
-         AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);//Creates AffineTransform needed to shrink image
-         after = scaleOp.filter(img, after); //Transforms the image
-         /////////////////////////////////////////////////////////////////////////////////////Draws Image                 
-         g.drawImage(after, placeImg, null); //Draw things
-         if(distance(myX, myY, arg2.getCenter()[0], arg2.getCenter()[1]) < myDistance) //Checks if it got there
-         {
-            reached = true; //I got there!
-            myPlanet = arg2;
-         }
-      }
    }
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    //distance formula
