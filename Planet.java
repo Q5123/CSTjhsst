@@ -42,6 +42,7 @@ public class Planet
    public int myOff;
    public JPanel myPanel;
    public int IronUsed;
+   public boolean action;
    public Planet(int x, int y, int t, int mS, String i, String s, int iro, double r, String n, player p, JPanel pan)
    {
       img = i;
@@ -113,17 +114,25 @@ public class Planet
    }
    public void attack(Planet p, int s, Graphics2D g)
    {
-       if(s + myPlayer.getBenefits("atk") > p.myStrength)
+       if(s + myPlayer.getBenefits("atk") > p.calcStrength(p, p.myPlayer))
        {
           double remaining = s + myPlayer.getBenefits("atk") - p.myStrength;
           for(int i = 0; i <= s; s++)
           {
-              myShips.get(i).Attack(p, g);
-
               p.myShips.add(myShips.get(i));
 
               myShips.remove(i);
           }
+          action = false;
+       }
+
+       else {
+          JOptionPane.showConfirmDialog(myPanel,"Unsuccessful");
+          for(int i = 0; i <= s; s++)
+          {
+             myShips.remove(i);
+          }
+          action = false;
        }
    }
 
@@ -134,10 +143,11 @@ public class Planet
    }
    public void displayShips(Graphics2D g, Planet arg)
    {
-       if(myShips.size() == myShipsT1)
+       if(myShips.size() == myShipsT1 + myShipsT3 + myShipsT2)
        for(int i = 0; i < myShips.size(); i++ )
        {
            myShips.get(i).drawCirclePath(arg, g);
+           g.drawOval(myShips.get(i).myX, myShips.get(i).myY, 10, 10);
        }
        else {
            addShips(arg);
@@ -153,14 +163,6 @@ public class Planet
       dob[1] = y;
       return dob;
    
-   }
-
-   public void update(double x, BufferedImage im, Graphics2D g, JPanel panel)
-   {
-     AffineTransform rot = new AffineTransform();
-     double dob[] = getCenter();
-     rot.rotate(Math.toRadians(45), dob[0], dob[1]);
-     g.drawImage(im, rot, panel);  
    }
    
    public double calcStrength(Planet arg, player p)
@@ -185,8 +187,7 @@ public class Planet
          }
       }
       catch(StringIndexOutOfBoundsException e){}
-         
-         
+      if(action = true)
       if(s.equals("atk"))
       {
          String attacked = JOptionPane.showInputDialog(panel, "who are you attacking?");
@@ -200,23 +201,23 @@ public class Planet
          }
          if(ArrOfAttacked == -1)
          {
-            System.out.println("thats not a planet");
+             console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1, g);
          }
          else
          {
-            String attacker = JOptionPane.showInputDialog(panel, "from which planet");
+
             int ArrOfAttacker = -1;
             
             for(int i = 0; i < p.length; i++)
             {
-               if(attacker.equals(p[i].name))
+               if(this.name.equals(p[i].name))
                {
                   ArrOfAttacker = i;
                }
             }
             if(ArrOfAttacker == -1)
             {
-               System.out.println("thats not a planet");
+                console(JOptionPane.showInputDialog(panel, "That's not a planet"), p, panel, p1, g);
             }
             
             else
@@ -230,25 +231,61 @@ public class Planet
          
          }
       }
+else if(s.equals("terraform"))
+{
+    switch(myPlayer.myRace)
+    {
+        case "Human":
+            setImage("16");
+            Iron += myPlayer.myTier * 5;
+            break;
+        case "Cybermen":
+            setImage("17");
+            Iron += myPlayer.myTier * 5;
+            break;
+        case "Dalek":
+            setImage("12");
+            Iron += myPlayer.myTier * 5;
+            break;
+        case "Jawa":
+            setImage("16");
+            Iron += myPlayer.myTier * 5;
+            break;
+        default:
+            break;
 
-      if(s.equals("research"))
+    }
+
+    action = false;
+
+
+
+
+
+
+}
+      else if(s.equals("research"))
       {
           if(myPlayer.isMe(p1))
           {
               int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
               myPlayer.addResearch(amount);
-              if(amount <= Iron - IronUsed)
-              IronUsed += amount;
+              if(amount <= Iron - IronUsed) {
+                  IronUsed += amount;
+                  action = false;
+
+              }
+
 
               else{
-                  JOptionPane.showConfirmDialog(panel, "You don't have enough Iron");
+                  console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
               }
           }
 
 
       }
 
-      if(s.equals("build"))
+      else if(s.equals("build"))
       {
          if(myPlayer.isMe(p1)) {
             int amount = Integer.parseInt(JOptionPane.showInputDialog(panel, "how many?"));
@@ -256,10 +293,11 @@ public class Planet
                 if(amount <= Iron - IronUsed && myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
                     IronUsed += amount;
                     myShipsT1 += amount;
+                    action = false;
                 }
 
                 else{
-                    JOptionPane.showConfirmDialog(panel, "You don't have enough Iron");
+                    console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
                 }
 
 
@@ -270,10 +308,11 @@ public class Planet
                 if(amount <= Iron - (IronUsed * 2) && myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
                     IronUsed += amount;
                     myShipsT2 += amount;
+                    action = false;
                 }
 
                 else{
-                    JOptionPane.showConfirmDialog(panel, "You don't have enough Iron");
+                    console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
                 }
             }
 
@@ -282,22 +321,28 @@ public class Planet
                 if(amount <= Iron - (IronUsed * 3)&& myPlayer.getIron(p) >= myPlayer.getUsedIron(p)) {
                     IronUsed += amount;
                     myShipsT3 += amount;
+                    action = false;
                 }
 
                 else{
-                    JOptionPane.showConfirmDialog(panel, "You don't have enough Iron");
+                    console(JOptionPane.showInputDialog(panel, "You don't have enough Iron"), p, panel, p1, g);
                 }
             }
          }
 
          else{
-            JOptionPane.showMessageDialog(panel, "This isn't your planet");
+             console(JOptionPane.showInputDialog(panel, "This isn't your planet"), p, panel, p1, g);
          }
 
       }
       
       else
          JOptionPane.showMessageDialog(panel ,"Sorry, that's not a command" , "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
+
+
+      else{
+          JOptionPane.showMessageDialog(panel, "This system is out of actions", "InfoBoc: ", JOptionPane.INFORMATION_MESSAGE);
+      }
       
    }
    
@@ -320,6 +365,8 @@ public class Planet
       
       }
       break;
+
+          case "research": myPlayer.addResearch(x);
       
       default:
       break;
@@ -374,7 +421,8 @@ public class Planet
    }
    public String getInfo()
    {
-      String s ="Name: " + name + "\n" + "Owner: " + Race + "\n " + " Iron : " + Iron + "\n " + " Strength : " + myStrength + "\n ";
+       myStrength = calcStrength(this, myPlayer);
+      String s ="Name: " + name + "\n" + "Owner: " + Race + "\n " + " Iron : " + Iron + "\n " + " Strength : " + myStrength + "\n Tier: " + myTier + "\n Iron Used: " + IronUsed;
       return s;
    }
 }

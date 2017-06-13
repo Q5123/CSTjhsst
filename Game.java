@@ -34,6 +34,7 @@ public class Game implements Runnable{
    public File f; //planet info
    public File j; //planet names
    public Graphics2D g;
+   JLabel plylabel;
    
    //more fields
    BufferStrategy bufferStrategy;
@@ -125,6 +126,7 @@ public class Game implements Runnable{
           }
       });
       southPanel.add(endTurn,BorderLayout.EAST);
+      southPanel.add(plylabel = new JLabel("Iron: " + currentPlayer().getIron(arr) + "\n  Used Iron: " + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier), BorderLayout.WEST);
       panel.add(southPanel, BorderLayout.SOUTH);
 
       canvas.addMouseListener(new MouseControl()); //listener that checks for mouse actions within canvas borders
@@ -167,6 +169,7 @@ public class Game implements Runnable{
             A.myTurn = false;
             p1.myTurn = true;
         }
+        plylabel.setText(("Iron: " + currentPlayer().getIron(arr) + "\n    Used Iron:" + currentPlayer().getUsedIron(arr) + "\n  Research Tier: " + currentPlayer().myTier));
 
     }
 
@@ -180,11 +183,10 @@ public class Game implements Runnable{
           return A;
     }
    
-   public void displayButton(int i, Graphics2D g) throws Exception //displays buttons on the game
+   public void displayPlanets(int i, Graphics2D g) throws Exception //displays buttons on the game
    {
       BufferedImage buttonIcon = ImageIO.read(new File(arr[i].getImagePath()));
       icon[i] = scaleDown(buttonIcon);
-      arr[i].update(x,icon[i],g, panel);
       g.setFont(new Font("Tunga", 1, 24));
       g.setColor(Color.blue);
       g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC); //part of scaling the image
@@ -283,7 +285,7 @@ public class Game implements Runnable{
       
       for(int i = 0; i < arr.length; i++) {
          try{
-            displayButton(i,g);
+            displayPlanets(i,g);
          }
          catch(Exception e){System.out.println("Could not Display " + arr[i].getImagePath());}
       }
@@ -298,6 +300,7 @@ public class Game implements Runnable{
             g.drawOval(arr[i].myX,arr[i].myY, (int)arr[i].Radius, (int)arr[i].Radius);
          }
           arr[i].displayShips(g, arr[i]);
+
       }
    }
    public static void main(String [] args){
